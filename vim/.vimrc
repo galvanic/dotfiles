@@ -1,0 +1,156 @@
+set nocompatible
+
+set numberwidth=4
+filetype plugin on
+
+" Added for Pathogen plugin manager as per http://www.bestofvim.com/plugin/pathogen/ on 140809
+call pathogen#infect()
+
+" Added by Justine 140810 for code colouring in iTerm2
+" set background=dark // set in colorscheme already
+syntax on
+set t_Co=256
+colorscheme wombat256
+
+" for indent level colouring // doesn't work :(
+hi IndentGuidesOdd  ctermbg=black
+hi IndentGuidesEven ctermbg=darkgrey
+
+" set timeout
+set timeout timeoutlen=200 ttimeoutlen=50
+
+" Added by Justine 150508 for markdown syntax highlighting
+au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+
+" Added by Justine 150302 for vimroom bug fix when quitting
+" Quitting whether Vimroom is active or not
+ca wq :w<cr>:call Quit()<cr>
+ca q :call Quit()<cr>
+function! Quit()
+    if winnr('$') > 3
+        VimroomToggle
+    endif
+    quit
+endfunction
+
+" Added by Justine 150302
+let mapleader = "\<Space>"
+nmap <silent> <Leader>v <Plug>VimroomToggle
+let g:vimroom_navigation_keys = 0
+
+" search
+set incsearch
+" set showmatch
+set hlsearch
+set ignorecase
+set smartcase
+" clears search
+nnoremap <leader><space> :noh<cr>
+
+" integrate with system clipboard
+set clipboard=unnamed
+
+" encoding
+set encoding=utf-8
+
+" basic indentation (does not interfere with filetype indent)
+set autoindent
+filetype plugin indent on
+
+" tabs
+set expandtab
+set tabstop=2
+set shiftwidth=2
+
+" whitespace
+set list
+set listchars=tab:»\ ,trail:·
+
+" escape
+inoremap jj <ESC>
+
+" disable arrows
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
+
+" Added by Justine 150521
+" http://vim.wikia.com/wiki/Prevent_escape_from_moving_the_cursor_one_character_to_the_left
+" https://stackoverflow.com/questions/2295410/prevent-cursor-from-moving-back-one-character-on-insert-mode-exit
+" inoremap <silent> <Esc> <C-O>:stopinsert<CR>
+inoremap <silent> <Esc> <Esc>`^
+
+" 
+set cursorline
+set cursorcolumn
+
+" disable auto comment on ENTER
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+" to insert blank lines
+map <Enter> o<ESC>
+map <S-Enter> O<ESC>
+nmap oo o<Esc>o
+
+" Enable mouse in normal mode
+set mouse=n
+
+" Show the filename in the window titlebar
+set title
+
+" Start scrolling three lines before the horizontal window border
+set scrolloff=3
+
+" undo previous actions even after you close and reopen a file
+set undofile
+
+" turns off Vim’s default regex and makes searches use normal regexes
+nnoremap / /\v
+vnoremap / /\v
+
+" applies substitutions globally on lines
+set gdefault
+
+" make the tab key match bracket pairs
+nnoremap <tab> %
+vnoremap <tab> %
+
+" one less key to hit every time I want to save a file
+nnoremap ; :
+
+" save on losing focus
+au FocusLost * :wa
+
+au FocusLost * :set number
+au FocusGained * :set relativenumber
+
+" disable Ex mode
+nnoremap Q <nop>
+
+" load matchit.vim: % recognises regex etc
+runtime! macros/matchit.vim
+
+" more from sensible.vim
+set backspace=indent,eol,start
+set complete-=i
+set showcmd
+set wildmenu
+set smarttab
+
+" easy_motions plugin settings
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+nmap s <Plug>(easymotion-s)
+
+" Treat long lines as break lines (useful when moving around in them)
+map j gj
+map k gk
+
+" No annoying sound on errors
+set noerrorbells
+
+

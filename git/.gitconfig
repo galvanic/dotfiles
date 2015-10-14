@@ -1,0 +1,18 @@
+[user]
+	name = galvanic
+	email = myemail@y
+[credential]
+	helper = osxkeychain
+[alias]
+	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	lolaa = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+[push]
+	default = current
+[color]
+	ui = auto
+	status = always
+[rerere]
+	enabled = true
+[core]
+	excludesfile = ~/.gitignore-global
+	attributesfile = ~/.gitattributes
