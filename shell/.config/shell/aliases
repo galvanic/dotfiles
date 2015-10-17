@@ -1,0 +1,60 @@
+alias rm='rm -i'
+
+alias ls='ls -p'
+alias la='ls -pA'
+alias ll='ls -plhoT'
+alias lt='ls -t'
+alias lla='ls -pAlhoT'
+alias tree='tree -CF --dirsfirst -L 2 -I "*.pyc|__pycache__"'
+alias grep='grep --color'
+
+alias dl='cd $HOME/Downloads'
+
+alias vi='vim'
+
+alias editz='vim $XDG_CONFIG_HOME/zsh/.zshrc'
+alias edita='vim $XDG_CONFIG_HOME/shell/aliases'
+alias editv='vim $XDG_CONFIG_HOME/vim/vimrc'
+alias editenv='vim $XDG_CONFIG_HOME/shell/env'
+
+export TODAY=$(date +%y%m%d)
+alias today='rem -n | sort | grep $(date +%Y/%m/%d) | cut -d " " -f 2-'
+
+export NOTES_DIR=$HOME/Dropbox/notes
+alias notes='cd $NOTES_DIR'
+alias newnote='vim $NOTES_DIR/diary/$TODAY.md'
+alias lastnote='notes && cd diary && vim $(ls -t | head -1)'
+
+alias t='todo.sh -d $XDG_CONFIG_HOME/todo.cfg'
+alias todo='vim $TODO_DIR/todo.txt'
+
+export PROJECT_DIR=$HOME/Dropbox/programming/projects/
+alias proj='cd $PROJECT_DIR && ls'
+alias prog='cd ~/Dropbox/programming && ls'
+
+#alias copy='tr -d "\n" | pbcopy'
+
+alias hist='history'
+#alias chmodof='stat -f "%OLp"'
+alias sizeof='du -h -d 1 -c' # See also ncdu
+alias short='export PS1="$ "'
+alias json='python -mjson.tool'
+
+alias up='cd ..'
+alias upup='cd ../..'
+alias back='cd -'
+
+# IP addresses
+alias ip='dig +short myip.opendns.com @resolver1.opendns.com'
+#alias localip='ipconfig getifaddr en1'
+
+# Intuitive map function
+# For example, to list all directories that contain a certain file:
+# find . -name .gitattributes | map dirname
+alias map='xargs -n1'
+
+alias startserver='python2 -m SimpleHTTPServer'
+
+function clip { [ -t 0 ] && pbpaste || pbcopy; }
+
+#alias c='pygmentize -O style=manni -f console256 -g'

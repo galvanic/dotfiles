@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/jc5809/.oh-my-zsh
+ZSH=/usr/share/oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -60,11 +60,8 @@ plugins=(git)
 
 # User configuration
 
-export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/MacGPG2/bin:/usr/texbin"
+export PATH=$HOME/bin:usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
-
-# check for updates, init shell
-source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -82,10 +79,21 @@ source $ZSH/oh-my-zsh.sh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
+# check for updates, init shell
+source $ZSH/oh-my-zsh.sh
+
+ZSH_CACHE_DIR=$HOME/.oh-my-zsh-cache
+if [[ ! -d $ZSH_CACHE_DIR ]]; then
+  mkdir $ZSH_CACHE_DIR
+fi
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-source $HOME/.aliases
-source $HOME/.env
-source $HOME/.welcome
+source $XDG_CONFIG_HOME/shell/aliases
+source $XDG_CONFIG_HOME/shell/env
+source $XDG_CONFIG_HOME/shell/welcome
+
+## terminal vi mode
+bindkey -v

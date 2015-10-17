@@ -3,6 +3,10 @@ set nocompatible
 set numberwidth=4
 filetype plugin on
 
+if exists('$XDG_CONFIG_HOME')
+  let &runtimepath.=','.expand('$XDG_CONFIG_HOME/vim')
+  source $XDG_CONFIG_HOME/vim/autoload/pathogen.vim
+endif
 " Added for Pathogen plugin manager as per http://www.bestofvim.com/plugin/pathogen/ on 140809
 call pathogen#infect()
 
