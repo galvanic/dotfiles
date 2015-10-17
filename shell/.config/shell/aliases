@@ -1,5 +1,3 @@
-alias rm='rm -i'
-
 alias ls='ls -p'
 alias la='ls -pA'
 alias ll='ls -plhoT'
@@ -43,6 +41,11 @@ alias json='python -mjson.tool'
 alias up='cd ..'
 alias upup='cd ../..'
 alias back='cd -'
+
+## linux specific
+alias prolog=swipl
+alias open=xdg-open
+alias editpdf='xournal'
 
 # IP addresses
 alias ip='dig +short myip.opendns.com @resolver1.opendns.com'
