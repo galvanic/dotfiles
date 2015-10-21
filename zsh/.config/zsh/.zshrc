@@ -1,8 +1,7 @@
 # Path to oh-my-zsh installation
 ZSH=/usr/share/oh-my-zsh
 
-ZSH_THEME="robbyrussell"
-# ZSH_THEME="terminalparty"
+ZSH_THEME="terminalparty"
 
 # _ and - will be interchangeable
 HYPHEN_INSENSITIVE="true"
@@ -66,8 +65,22 @@ source $XDG_CONFIG_HOME/shell/env
 source $XDG_CONFIG_HOME/shell/welcome
 source $XDG_CONFIG_HOME/zsh/functions
 
-## terminal vi mode
+## terminal vi mode: http://dougblack.io/words/zsh-vi-mode.html
 bindkey -v
+
+function zle-line-init zle-keymap-select {
+  case $KEYMAP in
+    vicmd) print -rn -- $terminfo[cvvis];; # block cursor
+    viins|main) print -rn -- $terminfo[cnorm];; # less visible cursor
+  esac
+  VIMODE_PROMPT="${${KEYMAP/vicmd/[N]}/(main|viins)/[I]} $ "
+  #PS1=$VIMODE_PROMPT
+  zle reset-prompt
+}
+
+zle -N zle-line-init
+zle -N zle-keymap-select
+export KEYTIMEOUT=1
 
 ## Added by Justine 151001 for Redshift as described here:
 ## https://cberhard.wordpress.com/2015/06/02/using-systemd-user-services/
