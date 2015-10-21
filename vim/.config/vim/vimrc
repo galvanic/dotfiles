@@ -14,11 +14,9 @@ call pathogen#infect()
 " set background=dark // set in colorscheme already
 syntax on
 set t_Co=256
-colorscheme wombat256
-
-" for indent level colouring // doesn't work :(
-hi IndentGuidesOdd  ctermbg=black
-hi IndentGuidesEven ctermbg=darkgrey
+colorscheme wombat256i
+" set ctermbg to none to have a transparent vim background
+highlight Normal ctermfg=256 ctermbg=none
 
 " set timeout
 set timeout timeoutlen=200 ttimeoutlen=50
@@ -89,8 +87,9 @@ noremap <right> <nop>
 " inoremap <silent> <Esc> <C-O>:stopinsert<CR>
 inoremap <silent> <Esc> <Esc>`^
 
-" 
+" crosshair effect on cursor position
 set cursorline
+"highlight cursorline cterm=bold ctermbg=none
 set cursorcolumn
 
 " disable auto comment on ENTER
