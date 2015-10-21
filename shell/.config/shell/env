@@ -30,3 +30,4 @@ export PATH=$PATH:$HOME
 export DOTREMINDERS=$HOME/Dropbox/reminders/
 export IPYTHONDIR=$XDG_CONFIG_HOME/ipython/
 export JUPYTER_CONFIG_DIR=$XDG_CONFIG_HOME/jupyter/
+export GIT_CONFIG=$XDG_CONFIG_HOME/git/config
