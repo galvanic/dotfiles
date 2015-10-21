@@ -64,6 +64,7 @@ fi
 source $XDG_CONFIG_HOME/shell/aliases
 source $XDG_CONFIG_HOME/shell/env
 source $XDG_CONFIG_HOME/shell/welcome
+source $XDG_CONFIG_HOME/zsh/functions
 
 ## terminal vi mode
 bindkey -v
