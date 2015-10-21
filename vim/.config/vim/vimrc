@@ -10,7 +10,6 @@ endif
 " Added for Pathogen plugin manager as per http://www.bestofvim.com/plugin/pathogen/ on 140809
 call pathogen#infect()
 
-" Added by Justine 140810 for code colouring in iTerm2
 " set background=dark // set in colorscheme already
 syntax on
 set t_Co=256
@@ -21,10 +20,10 @@ highlight Normal ctermfg=256 ctermbg=none
 " set timeout
 set timeout timeoutlen=200 ttimeoutlen=50
 
-" Added by Justine 150508 for markdown syntax highlighting
+" Added for markdown syntax highlighting
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
-" Added by Justine 150302 for vimroom bug fix when quitting
+" for vimroom bug fix when quitting
 " Quitting whether Vimroom is active or not
 ca wq :w<cr>:call Quit()<cr>
 ca q :call Quit()<cr>
@@ -35,18 +34,16 @@ function! Quit()
     quit
 endfunction
 
-" Added by Justine 150302
 let mapleader = "\<Space>"
 nmap <silent> <Leader>v <Plug>VimroomToggle
 let g:vimroom_navigation_keys = 0
 
-" search
+" search options
 set incsearch
-" set showmatch
 set hlsearch
 set ignorecase
 set smartcase
-" clears search
+" keymapping that clears search highlighting (no highlighting)
 nnoremap <leader><space> :noh<cr>
 
 " integrate with system clipboard
@@ -81,7 +78,6 @@ noremap <down> <nop>
 noremap <left> <nop>
 noremap <right> <nop>
 
-" Added by Justine 150521
 " http://vim.wikia.com/wiki/Prevent_escape_from_moving_the_cursor_one_character_to_the_left
 " https://stackoverflow.com/questions/2295410/prevent-cursor-from-moving-back-one-character-on-insert-mode-exit
 " inoremap <silent> <Esc> <C-O>:stopinsert<CR>
@@ -100,13 +96,13 @@ map <Enter> o<ESC>
 map <S-Enter> O<ESC>
 nmap oo o<Esc>o
 
-" Enable mouse in normal mode
+" enable mouse in normal mode
 set mouse=n
 
-" Show the filename in the window titlebar
+" show the filename in the window titlebar
 set title
 
-" Start scrolling three lines before the horizontal window border
+" start scrolling three lines before the horizontal window border
 set scrolloff=3
 
 " undo previous actions even after you close and reopen a file
@@ -139,9 +135,9 @@ nnoremap Q <nop>
 runtime! macros/matchit.vim
 
 " more from sensible.vim
-set backspace=indent,eol,start
+set backspace=indent,eol,start  "Allow backspace in insert mode
 set complete-=i
-set showcmd
+set showcmd                     "Show incomplete cmds in bottom right corner
 set wildmenu
 set smarttab
 
