@@ -3,6 +3,7 @@ alias la='ls -pA'
 alias ll='ls -plhoT'
 alias lt='ls -t'
 alias lla='ls -pAlhoT'
+alias l1='ls -1'
 alias tree='tree -CF --dirsfirst -L 2 -I "*.pyc|__pycache__"'
 alias grep='grep --color'
 
@@ -61,3 +62,6 @@ alias startserver='python2 -m SimpleHTTPServer'
 function clip { [ -t 0 ] && pbpaste || pbcopy; }
 
 #alias c='pygmentize -O style=manni -f console256 -g'
+
+## linux aliases
+alias pbcopy='xclip -selection clipboard'

@@ -3,7 +3,7 @@ export VISUAL=vim
 export EDITOR=$VISUAL
 
 ## Added by Justine for virtualenvwrapper 140309
-export HOOK_VERBOSE_OPTION=-vvvv
+#export HOOK_VERBOSE_OPTION=-vvvv
 export WORKON_HOME=$HOME/.virtualenvs/
 export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME
 export PROJECT_HOME=$PROJECT_DIR
@@ -26,3 +26,7 @@ export PATH=$PATH:$HOME
 ## Added by Justine 150504 from tips here: http://hackercodex.com/guide/python-development-environment-on-mac-osx/
 # pip should only run if there is a virtualenv currently activated
 #export PIP_REQUIRE_VIRTUALENV=true
+
+export DOTREMINDERS=$HOME/Dropbox/reminders/
+export IPYTHONDIR=$XDG_CONFIG_HOME/ipython/
+export JUPYTER_CONFIG_DIR=$XDG_CONFIG_HOME/jupyter/
