@@ -69,56 +69,71 @@ syntax enable " enable syntax processing
 set t_Co=256
 colorscheme wombat256
 
-" set timeout
-set timeout timeoutlen=200 ttimeoutlen=50
+" indent guide plugin settings
+" colors here: http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
+hi IndentGuidesOdd  ctermbg=234 " darker
+hi IndentGuidesEven ctermbg=235 " lighter dark
+let g:indent_guides_auto_colors=0
+let g:indent_guides_guide_size=1
 
-" Added for markdown syntax highlighting
-au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+" set ctermbg to none to have a transparent vim background
+highlight Normal ctermbg=none
+highlight SpecialKey ctermbg=none " tabs and spaces background
+highlight NonText ctermbg=none
 
-" for vimroom bug fix when quitting
-" Quitting whether Vimroom is active or not
-ca wq :w<cr>:call Quit()<cr>
-ca q :call Quit()<cr>
-function! Quit()
-    if winnr('$') > 3
-        VimroomToggle
-    endif
-    quit
-endfunction
+" treat md files as markdown for proper markdown syntax highlighting
+autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+
+" don't automatically make a comment line when new line under a comment
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 let mapleader = "\<Space>"
-nmap <silent> <Leader>v <Plug>VimroomToggle
-let g:vimroom_navigation_keys = 0
+
+" Goyo keybindings
+nmap <leader>g :Goyo<cr>
+nmap <leader>l :Limelight!!<cr>
+
+set lazyredraw    " redraw only when we need to.
+set numberwidth=1 " space between left window edge and number
+set ruler         " numbers in bottom right corner showing row and column number
 
 " search options
-set incsearch
-set hlsearch
+set magic       " regular expressions
+set incsearch   " search as characters are entered
 set ignorecase
 set smartcase
-" keymapping that clears search highlighting (no highlighting)
-nnoremap <leader><space> :noh<cr>
+nnoremap <leader><space> :nohlsearch<cr>
+autocmd InsertEnter * :setlocal nohlsearch
+" my workaround, but it doesn't work if I search again using / or ?
+nnoremap n n:silent set hlsearch<cr>
+nnoremap N N:silent set hlsearch<cr>
 
-" integrate with system clipboard
-set clipboard=unnamed
+nnoremap U <C-r>  " map shift+U to redo
 
-" encoding
+" folding options
+set foldenable
+set foldlevelstart=10   " open most folds by default
+set foldnestmax=10      " 10 nested fold max
+nnoremap f za           " f open/closes folds
+set foldmethod=indent   " fold based on indent level
+
 set encoding=utf-8
 
 set autoindent  " basic indentation (does not interfere with filetype indent)
 
-" tabs
-set expandtab
-set tabstop=2
+" tabs options
+set expandtab       " tabs into spaces
+set tabstop=2       " number of visual spaces per tab
+set softtabstop=2   " number of spaces in tab when editing
 set shiftwidth=2
 
-" whitespace
-set list
-set listchars=tab:»\ ,trail:·
+set list                      " list disables linebreak
+set listchars=tab:»\ ,trail:· " how whitespace looks (trailing spaces, tabulations)
 
-" escape
-inoremap jj <ESC>
+" set timeout for pressing a key after another key (eg. useful for oo binding)
+set timeout timeoutlen=200 ttimeoutlen=0
 
-" disable arrows
+" disable arrow keys
 inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
@@ -127,79 +142,97 @@ noremap <up> <nop>
 noremap <down> <nop>
 noremap <left> <nop>
 noremap <right> <nop>
+" disable arrow keys inserting random letters
+" see: http://vim.wikia.com/wiki/Fix_arrow_keys_that_display_A_B_C_D_on_remote_shell#Solution_1
+imap <ESC>oA <nop>
+imap <ESC>oB <nop>
+imap <ESC>oC <nop>
+imap <ESC>oD <nop>
+" ^ this then causes vim to wait after I press (real) escape to see whether oA is coming, causing a lag :/
+" solved: https://stackoverflow.com/questions/15550100/exit-visual-mode-without-delay
+augroup FastEscape
+  autocmd!
+  autocmd InsertEnter * :set timeoutlen=0
+  autocmd InsertLeave * :set timeoutlen=200
+augroup END
 
 " http://vim.wikia.com/wiki/Prevent_escape_from_moving_the_cursor_one_character_to_the_left
 " https://stackoverflow.com/questions/2295410/prevent-cursor-from-moving-back-one-character-on-insert-mode-exit
-" inoremap <silent> <Esc> <C-O>:stopinsert<CR>
 inoremap <silent> <Esc> <Esc>`^
 
 " crosshair effect on cursor position
 set cursorline
-"highlight cursorline cterm=bold ctermbg=none
 set cursorcolumn
 
-" disable auto comment on ENTER
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+nnoremap oo o<Esc>o
+nnoremap OO O<Esc>O
 
-" to insert blank lines
-map <Enter> o<ESC>
-map <S-Enter> O<ESC>
-nmap oo o<Esc>o
+" key bindings for beginning and end of lines
+nnoremap 0 ^
+nnoremap H ^
+nnoremap L $
+vnoremap $ $h
 
-" enable mouse in normal mode
-set mouse=n
+" make delete to beginning of word behave the way I keep expecting it to work
+" i.e. I usually am already at the end of the word (after typing e) so I want it to delete the last letter as well
+nnoremap db dbx
+nnoremap dB dBx
 
-" show the filename in the window titlebar
-set title
+" treat long lines as break lines (useful when moving around in them)
+noremap j gj
+noremap k gk
 
-" start scrolling three lines before the horizontal window border
-set scrolloff=3
+" move a line of text using Alt+[jk]
+" To input the Alt character, use Ctrl+v, Esc
+nnoremap j :m .+1<CR>==
+nnoremap k :m .-2<CR>==
+inoremap j <Esc>:m .+1<CR>==gi
+inoremap k <Esc>:m .-2<CR>==gi
+vnoremap j :m '>+1<CR>gv=gv
+vnoremap k :m '<-2<CR>gv=gv
 
-" undo previous actions even after you close and reopen a file
-set undofile
+nnoremap ( {
+nnoremap ) }
+" go to first line in paragraph (could change this to make sense in terms of blocks with python for eg.)
+nnoremap } }j
+nnoremap { 2{j0   " noremap esp important here so that it doesn't recurse
 
-" turns off Vim’s default regex and makes searches use normal regexes
-nnoremap / /\v
-vnoremap / /\v
+" move cursor to previous position
+nnoremap - ''
 
-" applies substitutions globally on lines
-set gdefault
+set title         " show the filename in the window titlebar
+set scrolloff=10  " start scrolling three lines before the horizontal window border
+set undofile      " undo previous actions even after you close and reopen a file
+set gdefault      " applies substitutions globally on lines
 
 " make the tab key match bracket pairs
 nnoremap <tab> %
 vnoremap <tab> %
+set showmatch         " show matching brackets when text indicator is over them [{()}]
+set matchpairs+=<:>   " match < and > as well
 
 " one less key to hit every time I want to save a file
 nnoremap ; :
 
 " save on losing focus
-au FocusLost * :wa
+autocmd FocusLost * :wa
 
-au FocusLost * :set number
-au FocusGained * :set relativenumber
+autocmd FocusLost * :set number
+autocmd FocusGained * :set relativenumber
 
 " disable Ex mode
 nnoremap Q <nop>
 
-" load matchit.vim: % recognises regex etc
-runtime! macros/matchit.vim
-
-" more from sensible.vim
-set backspace=indent,eol,start  "Allow backspace in insert mode
+set backspace=indent,eol,start  " allow backspace in insert mode
 set complete-=i
-set showcmd                     "Show incomplete cmds in bottom right corner
-set wildmenu
+set showcmd                     " show incomplete cmds in bottom right corner
+set wildmenu                    " visual autocomplete for command menu
+set wildignore=*~,*.pyc         " ignore compiled files
 set smarttab
 
-" easy_motions plugin settings
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
-nmap s <Plug>(easymotion-s)
+set noerrorbells " no annoying sound on errors
 
-" Treat long lines as break lines (useful when moving around in them)
-map j gj
-map k gk
-
-" No annoying sound on errors
-set noerrorbells
-
-
+" return to last edit position when opening files
+" doesn't work with Goyo
+autocmd BufWinLeave * :mkview
+autocmd BufReadPost * :loadview
