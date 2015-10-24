@@ -1,0 +1,8 @@
+{
+  "load_extensions": {
+    "toc": true,
+    "vim_binding": true,
+    "usability/codefolding/main": true,
+    "jupyter_themes/theme_selector": true
+  }
+}
