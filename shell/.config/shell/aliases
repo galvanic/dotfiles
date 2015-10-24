@@ -1,3 +1,12 @@
+alias neuro='cd $HOME/Dropbox/imperial/computing/computational-neurodynamics/'
+alias vision='cd $HOME/Dropbox/imperial/computing/computer-vision/'
+alias deep='cd $HOME/Dropbox/imperial/computing/deep-learning/'
+alias infocodes='cd $HOME/Dropbox/imperial/computing/information-and-codes/'
+alias simmod='cd $HOME/Dropbox/imperial/computing/simulation-and-modelling/'
+alias ml='cd $HOME/Dropbox/imperial/computing/machine-learning/'
+
+alias ipy='ipython notebook'
+
 alias ls='ls -p'
 alias la='ls -pA'
 alias ll='ls -plhoT'
