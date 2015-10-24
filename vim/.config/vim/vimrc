@@ -1,21 +1,73 @@
 set nocompatible
 
-set numberwidth=4
-filetype plugin on
+let &runtimepath.=','.expand('$XDG_CONFIG_HOME/vim')
 
-if exists('$XDG_CONFIG_HOME')
-  let &runtimepath.=','.expand('$XDG_CONFIG_HOME/vim')
-  source $XDG_CONFIG_HOME/vim/autoload/pathogen.vim
-endif
-" Added for Pathogen plugin manager as per http://www.bestofvim.com/plugin/pathogen/ on 140809
-call pathogen#infect()
+" load vundle
+filetype off
+let &runtimepath.=','.expand('$XDG_CONFIG_HOME/vim/bundle/Vundle')
+call vundle#begin()
 
-" set background=dark // set in colorscheme already
-syntax on
+" let Vundle manage itself
+Plugin 'VundleVim/Vundle.vim'
+
+" my bundles
+Plugin 'tpope/vim-surround'               " to wrap object with quotes or anything else
+Plugin 'jpalardy/vim-slime'               " to send text from vim to a REPL/tmux/etc.
+Plugin 'easymotion/vim-easymotion'        " to go quickly to things in the window
+Plugin 'ntpeters/vim-better-whitespace'   " red background for undesired whitespace
+Plugin 'tpope/vim-commentary'             " comment stuff out
+Plugin 'pangloss/vim-javascript'          " syntax and indent plugins for javascript
+Plugin 'tpope/vim-repeat'                 " remaps . in a way that plugins can tap into it
+Plugin 'terryma/vim-expand-region'        " visually select increasingly larger regions of text using the same key combination
+Plugin 'nathanaelkane/vim-indent-guides'  " indent spaces bg colour changes
+Plugin 'terryma/vim-multiple-cursors'     " like in Sublime Ctrl-D behaviour
+Plugin 'junegunn/goyo.vim'                " distraction-free //vimroom
+Plugin 'junegunn/limelight.vim'           " ultra focus, unsaturates the colour of all but the focussed paragraph
+Plugin 'MarcWeber/vim-addon-mw-utils'     " for SnipMate
+Plugin 'tomtom/tlib_vim'                  " for SnipMate
+Plugin 'garbas/vim-snipmate'              " snippets
+Plugin 'amix/vim-zenroom2'                " iA Writer environment when editing Markdown, reStructuredText or text files
+
+call vundle#end()
+filetype plugin on " enable filetype plugins (required for vundle)
+filetype indent on " load filetype-specific indent files
+
+" easy_motions plugin settings
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+nnoremap s <Plug>(easymotion-s)
+
+" Goyo plugin settings to make :q quit vim, not just Goyo
+function! s:goyo_enter()
+  let b:quitting = 0
+  let b:quitting_bang = 0
+  autocmd QuitPre <buffer> let b:quitting = 1
+  cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
+endfunction
+
+function! s:goyo_leave()
+  " Quit Vim if this is the only remaining buffer
+  if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+    if b:quitting_bang
+      qa!
+    else
+      qa
+    endif
+  endif
+endfunction
+
+autocmd User GoyoEnter :call <SID>goyo_enter()
+autocmd User GoyoLeave :call <SID>goyo_leave()
+
+" more Goyo plugin settings to get the background right
+autocmd User GoyoEnter :highlight Normal ctermbg=234
+autocmd User GoyoLeave :highlight Normal ctermbg=none
+
+" Limelight plugin settings
+let g:limelight_conceal_ctermfg = 'gray'
+
+syntax enable " enable syntax processing
 set t_Co=256
-colorscheme wombat256i
-" set ctermbg to none to have a transparent vim background
-highlight Normal ctermfg=256 ctermbg=none
+colorscheme wombat256
 
 " set timeout
 set timeout timeoutlen=200 ttimeoutlen=50
@@ -52,9 +104,7 @@ set clipboard=unnamed
 " encoding
 set encoding=utf-8
 
-" basic indentation (does not interfere with filetype indent)
-set autoindent
-filetype plugin indent on
+set autoindent  " basic indentation (does not interfere with filetype indent)
 
 " tabs
 set expandtab
