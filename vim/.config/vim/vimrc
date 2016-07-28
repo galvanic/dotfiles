@@ -11,6 +11,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " my bundles
+"Plugin 'Valloric/YouCompleteMe'           " text completion
 Plugin 'tpope/vim-surround'               " to wrap object with quotes or anything else
 Plugin 'jpalardy/vim-slime'               " to send text from vim to a REPL/tmux/etc.
 Plugin 'easymotion/vim-easymotion'        " to go quickly to things in the window
@@ -63,7 +64,7 @@ autocmd User GoyoEnter :highlight Normal ctermbg=234
 autocmd User GoyoLeave :highlight Normal ctermbg=none
 
 " Limelight plugin settings
-let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 236
 
 syntax enable " enable syntax processing
 set t_Co=256
@@ -80,6 +81,8 @@ let g:indent_guides_guide_size=1
 highlight Normal ctermbg=none
 highlight SpecialKey ctermbg=none " tabs and spaces background
 highlight NonText ctermbg=none
+" black ruler at 80
+highlight ColorColumn ctermbg=16
 
 " treat md files as markdown for proper markdown syntax highlighting
 autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
@@ -126,6 +129,12 @@ set expandtab       " tabs into spaces
 set tabstop=2       " number of visual spaces per tab
 set softtabstop=2   " number of spaces in tab when editing
 set shiftwidth=2
+set smarttab
+
+" tabs are spaces in matlab/octave
+autocmd BufNewFile,BufFilePre,BufRead *.m set filetype=matlab
+autocmd Filetype matlab setlocal ts=2 sts=2 sw=2 expandtab
+autocmd Filetype octave setlocal ts=2 sts=2 sw=2 expandtab
 
 set list                      " list disables linebreak
 set listchars=tab:»\ ,trail:· " how whitespace looks (trailing spaces, tabulations)
@@ -195,10 +204,19 @@ nnoremap ( {
 nnoremap ) }
 " go to first line in paragraph (could change this to make sense in terms of blocks with python for eg.)
 nnoremap } }j
-nnoremap { 2{j0   " noremap esp important here so that it doesn't recurse
+nnoremap { 2{j
+" ^ noremap esp important here so that it doesn't recurse
 
 " move cursor to previous position
 nnoremap - ''
+
+" change case
+nnoremap ~ ~h
+
+" move between buffers
+nnoremap J :wincmd j<CR>
+nnoremap K :wincmd k<CR>
+
 
 set title         " show the filename in the window titlebar
 set scrolloff=10  " start scrolling three lines before the horizontal window border
@@ -215,10 +233,10 @@ set matchpairs+=<:>   " match < and > as well
 nnoremap ; :
 
 " save on losing focus
-autocmd FocusLost * :wa
+autocmd FocusLost * stopinsert | :wa
 
-autocmd FocusLost * :set number
-autocmd FocusGained * :set relativenumber
+"autocmd FocusLost * :set number
+"autocmd FocusGained * :set relativenumber
 
 " disable Ex mode
 nnoremap Q <nop>
@@ -228,9 +246,15 @@ set complete-=i
 set showcmd                     " show incomplete cmds in bottom right corner
 set wildmenu                    " visual autocomplete for command menu
 set wildignore=*~,*.pyc         " ignore compiled files
-set smarttab
 
 set noerrorbells " no annoying sound on errors
+set visualbell   " this seems to actually kill the sound on error
+
+
+let &printexpr="(v:cmdarg=='' ? ".
+    \"system('lpr' . (&printdevice == '' ? '' : ' -P' . &printdevice)".
+    \". ' ' . v:fname_in) . delete(v:fname_in) + v:shell_error".
+    \" : system('mv '.v:fname_in.' '.v:cmdarg) + v:shell_error)"
 
 " return to last edit position when opening files
 " doesn't work with Goyo
