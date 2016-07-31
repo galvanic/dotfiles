@@ -1,19 +1,37 @@
-alias neuro='cd $HOME/Dropbox/imperial/computing/computational-neurodynamics/'
-alias vision='cd $HOME/Dropbox/imperial/computing/computer-vision/'
-alias deep='cd $HOME/Dropbox/imperial/computing/deep-learning/'
-alias infocodes='cd $HOME/Dropbox/imperial/computing/information-and-codes/'
-alias simmod='cd $HOME/Dropbox/imperial/computing/simulation-and-modelling/'
-alias ml='cd $HOME/Dropbox/imperial/computing/machine-learning/'
 
-alias ipy='ipython notebook'
+export COMP=$HOME/Dropbox/imperial/computing
+alias thesis='cd $COMP/thesis'
+alias luiscode='cd /home/justine/Dropbox/Adversarial Machine Learning (MSc projects)/Code'
 
-alias ls='ls -p'
-alias la='ls -pA'
-alias ll='ls -plhoT'
+#alias octave='octave --no-gui '
+alias ipynew='python $HOME/Dropbox/programming/projects/new_ipython_notebook.py'
+function ipy {
+  filename=$1
+  if [[ ! ${filename##*\.} == ipynb ]]; then
+    filename=$filename'.ipynb'
+  fi
+  if [[ ! -s $filename ]]; then
+    ipynew $1
+  fi
+  jupyter notebook $filename
+}
+function getcode {
+  filename=$1
+  cat $filename | jq '.cells[] | select(.cell_type == "code") | .source | .[]' | sed 's/^.\(.*\).$/\1/' | sed 's/\\n//' | sed 's/\s*$//g'
+}
+alias editjup='vim $XDG_CONFIG_HOME/jupyter/nbconfig/notebook.json'
+alias editipy='editjup'
+
+alias py='python'
+alias py2='python2'
+export PYTHONDONTWRITEBYTECODE=1  # no pycache folders
+
+alias ls='ls -1Nv --color=always --group-directories-first'
+alias la='ls -A'
+alias ll='ls -lh'
 alias lt='ls -t'
-alias lla='ls -pAlhoT'
-alias l1='ls -1'
-alias tree='tree -CF --dirsfirst -L 2 -I "*.pyc|__pycache__"'
+alias lla='ls -Alh'
+alias tree='tree -C --dirsfirst -L 2'
 alias grep='grep --color'
 
 alias dl='cd $HOME/Downloads'
@@ -24,10 +42,12 @@ alias editz='vim $XDG_CONFIG_HOME/zsh/.zshrc'
 alias edita='vim $XDG_CONFIG_HOME/shell/aliases'
 alias editv='vim $XDG_CONFIG_HOME/vim/vimrc'
 alias editenv='vim $XDG_CONFIG_HOME/shell/env'
+alias editt='vim $XDG_CONFIG_HOME/xfce4/terminal/terminalrc'
 
 export TODAY=$(date +%y%m%d)
 alias today='rem -n | sort | grep $(date +%Y/%m/%d) | cut -d " " -f 2-'
 
+alias note='cat | pbcopy' # end note-taking with Ctrl+D
 export NOTES_DIR=$HOME/Dropbox/notes
 alias notes='cd $NOTES_DIR'
 alias newnote='vim $NOTES_DIR/diary/$TODAY.md'
@@ -37,10 +57,8 @@ alias t='todo.sh -d $XDG_CONFIG_HOME/todo.cfg'
 alias todo='vim $TODO_DIR/todo.txt'
 
 export PROJECT_DIR=$HOME/Dropbox/programming/projects/
-alias proj='cd $PROJECT_DIR && ls'
-alias prog='cd ~/Dropbox/programming && ls'
-
-#alias copy='tr -d "\n" | pbcopy'
+alias proj='cd $PROJECT_DIR'
+alias prog='cd ~/Dropbox/programming'
 
 alias hist='history'
 #alias chmodof='stat -f "%OLp"'
@@ -58,7 +76,7 @@ alias open=xdg-open
 alias editpdf='xournal'
 
 # IP addresses
-alias ip='dig +short myip.opendns.com @resolver1.opendns.com'
+#alias ip='dig +short myip.opendns.com @resolver1.opendns.com'
 #alias localip='ipconfig getifaddr en1'
 
 # Intuitive map function
@@ -66,11 +84,16 @@ alias ip='dig +short myip.opendns.com @resolver1.opendns.com'
 # find . -name .gitattributes | map dirname
 alias map='xargs -n1'
 
-alias startserver='python2 -m SimpleHTTPServer'
-
-function clip { [ -t 0 ] && pbpaste || pbcopy; }
+alias startserver='python -m http.server'
 
 #alias c='pygmentize -O style=manni -f console256 -g'
 
 ## linux aliases
 alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
+function clip { [ -t 0 ] && pbpaste || pbcopy; }
+alias copy='tr -d "\n" | pbcopy'
+
+#alias adddns="echo 'nameserver 208.67.222.222' | sudo tee -a /etc/resolv.conf"
+
+alias lsmounted='lsblk -f'

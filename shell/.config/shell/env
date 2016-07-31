@@ -27,7 +27,12 @@ export PATH=$PATH:$HOME
 # pip should only run if there is a virtualenv currently activated
 #export PIP_REQUIRE_VIRTUALENV=true
 
+## config directories
 export DOTREMINDERS=$HOME/Dropbox/reminders/
 export IPYTHONDIR=$XDG_CONFIG_HOME/ipython/
 export JUPYTER_CONFIG_DIR=$XDG_CONFIG_HOME/jupyter/
 export GIT_CONFIG=$XDG_CONFIG_HOME/git/config
+
+## https://unix.stackexchange.com/questions/258679/why-is-ls-suddenly-wrapping-items-with-spaces-in-single-quotes
+export QUOTING_STYLE=literal
+
