@@ -158,6 +158,12 @@ imap <ESC>oB <nop>
 imap <ESC>oC <nop>
 imap <ESC>oD <nop>
 " ^ this then causes vim to wait after I press (real) escape to see whether oA is coming, causing a lag :/
+
+" disable backspace and enter keys
+nnoremap <BS> <nop>
+nnoremap <ENTER> <nop>
+nnoremap <SPACE> <nop>
+
 " solved: https://stackoverflow.com/questions/15550100/exit-visual-mode-without-delay
 augroup FastEscape
   autocmd!
@@ -216,6 +222,8 @@ nnoremap ~ ~h
 " move between buffers
 nnoremap J :wincmd j<CR>
 nnoremap K :wincmd k<CR>
+nnoremap H :wincmd h<CR>
+nnoremap L :wincmd l<CR>
 
 
 set title         " show the filename in the window titlebar
@@ -250,6 +258,8 @@ set wildignore=*~,*.pyc         " ignore compiled files
 set noerrorbells " no annoying sound on errors
 set visualbell   " this seems to actually kill the sound on error
 
+" dim logging statements
+highlight logStatement ctermfg=241
 
 let &printexpr="(v:cmdarg=='' ? ".
     \"system('lpr' . (&printdevice == '' ? '' : ' -P' . &printdevice)".
