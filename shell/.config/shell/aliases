@@ -1,8 +1,4 @@
 
-export COMP=$HOME/Dropbox/imperial/computing
-alias thesis='cd $COMP/thesis'
-alias luiscode='cd /home/justine/Dropbox/Adversarial Machine Learning (MSc projects)/Code'
-
 #alias octave='octave --no-gui '
 alias ipynew='python $HOME/Dropbox/programming/projects/new_ipython_notebook.py'
 function ipy {
