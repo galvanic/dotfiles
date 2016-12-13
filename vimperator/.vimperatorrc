@@ -1,0 +1,87 @@
+"3.12.0 (created: 2016/02/28 22:07:56)
+
+" cheatsheet: https://chudq.wordpress.com/2009/01/24/my-favourite-vimperator-keys/
+
+source! /home/justine/.vimperatorrc.local
+
+" vim: set ft=vimperator:
+
+""" GENERAL
+
+ignorekeys add workflowy.com
+ignorekeys add docs.google.com/presentation/
+ignorekeys add docs.google.com/spreadsheets/
+ignorekeys add overleaf.com
+
+colorscheme molokai
+highlight Hint -append font-size:150%;
+
+noremap v :source ~/.vimperatorrc<CR>
+set history=20
+set verbose=1
+
+" Follow links with letters instead of numbers
+set hintchars=hjklasdfgyuiopqwertnmzxcvb
+" Reduce default maxhints of 250 to speed up hints
+"set maxhints=50
+
+" default search/suggest engine: google
+"set defsearch=google
+"set suggestengines=google
+
+" completion priority in :[tab]open
+" Smart Completions (awesome bar), bookmarks, google search suggestions, history, files
+set complete=lbShf
+
+" don't focus any 'input' elements automatically when open pages.
+set focuscontent
+
+set incsearch
+set ignorecase
+set smartcase
+
+""" MAPPINGS
+
+" to avoid troubles from loading rc file several times
+mapclear
+cmapclear
+imapclear
+
+noremap K :tabprevious<CR>
+noremap J :tabnext<CR>
+noremap x :tabclose<CR>
+noremap X :undoall<CR>
+noremap D :undoall<CR>
+noremap d <ESC>
+
+nnoremap j 3j
+nnoremap k 3k
+
+" Copy
+"noremap Y y<Esc>
+"noremap yy <C-v><C-c><Esc>
+noremap <C-c> <C-v><C-c>
+cnoremap <C-c> <C-v><C-c>
+inoremap <C-c> <C-v><C-c>
+
+noremap <C-a> <Insert><C-a><Insert>
+cnoremap <C-a> <Insert><C-a><Insert>
+inoremap <C-a> <Insert><C-a><Insert>
+
+""" PLUGINS
+
+" Mendeley
+noremap m :open javascript:document.getElementsByTagName('body')%5B0%5D.appendChild(document.createElement('script')).setAttribute('src','https://www.mendeley.com/minified/bookmarklet.js');<CR>
+
+" Speed up video 1.5x
+noremap 1 :open javascript:document.getElementsByTagName("video")[0].playbackRate=1.5;<CR>
+
+" Speed up video 2x
+noremap 2 :open javascript:document.getElementsByTagName("video")[0].playbackRate=2.0;<CR>
+
+" Speed up video 3x
+noremap 3 :open javascript:document.getElementsByTagName("video")[0].playbackRate=3.0;<CR>
+
+" destroy a website asteroids style
+noremap X :open javascript:var%20s%20=%20document.createElement('script');s.type='text/javascript';document.body.appendChild(s);s.src='http://erkie.github.com/asteroids.min.js';void(0);<CR> <C-Z>
+
