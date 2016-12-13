@@ -13,7 +13,10 @@ fi
 ## Added by Justine 150205
 HISTSIZE=10000
 HISTCONTROL=ignoreboth
-shopt -s histappend
+shopt -s histappend ## set zsh type options
+
+shopt -s autocd
+shopt -s extglob
 
 ## Added by Justine to add colours to terminal 140309
 export CLICOLOR=1
@@ -49,7 +52,3 @@ if [ -f ~/.git-completion.bash ]; then
     . ~/.git-completion.bash
 fi
 
-## Added by Justine 150909
-if [ -f $HOME/.welcome ]; then
-	source $HOME/.welcome
-fi

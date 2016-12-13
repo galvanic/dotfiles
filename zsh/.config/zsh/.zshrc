@@ -1,52 +1,39 @@
 # Path to oh-my-zsh installation
 ZSH=/usr/share/oh-my-zsh
 
-ZSH_THEME="terminalparty"
 
-# _ and - will be interchangeable
+# interchangeable _ and -
 HYPHEN_INSENSITIVE="true"
 
-# Uncomment the following line to disable bi-weekly auto-update checks
+# disable bi-weekly auto-update checks
 DISABLE_AUTO_UPDATE="true"
 
-## Added by Justine to add colours to terminal 140309
-export CLICOLOR=1
-export LSCOLORS=gxfxcxdxbxegedabagaced
-export LS_COLORS=$LSCOLORS
-export CLICOLOR_FORCE=1
-
-# Uncomment the following line to display red dots whilst waiting for completion.
+# display red dots whilst waiting for completion
 COMPLETION_WAITING_DOTS="true"
 
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
+HISTFILE=~/.history
+HISTSIZE=10000
+SAVEHIST=1000000
+
+# command execution time stamp shown in the history command output
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 HIST_STAMPS="yyyy-mm-dd"
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# load plugins (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(git)
+plugins=(git extract z)
 
 # User configuration
 
+## Added by Justine to add colours to terminal 140309
+## https://miaobaozhen.blogspot.co.uk/2012/08/how-to-solve-ls-unparsable-value-for.html
+[ -z $LS_COLORS ] && eval `dircolors -b $XDG_CONFIG_HOME/shell/dir_colors`
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+export CLICOLOR=1
+export CLICOLOR_FORCE=1
+
 export PATH=$HOME/bin:usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # check for updates, init shell
 source $ZSH/oh-my-zsh.sh
@@ -56,10 +43,6 @@ if [[ ! -d $ZSH_CACHE_DIR ]]; then
   mkdir $ZSH_CACHE_DIR
 fi
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
 source $XDG_CONFIG_HOME/shell/aliases
 source $XDG_CONFIG_HOME/shell/env
 source $XDG_CONFIG_HOME/shell/welcome
@@ -68,26 +51,58 @@ source $XDG_CONFIG_HOME/zsh/functions
 ## terminal vi mode: http://dougblack.io/words/zsh-vi-mode.html
 bindkey -v
 
+## http://zsh.sourceforge.net/Doc/Release/Options-Index.html
+setopt appendhistory ## append history of multiple parallel zsh sessions in order they exit
+setopt hist_ignore_dups ## only enter command ran mulitple times in a row in history once
+setopt autocd ## if the command is the name of a directory, cd into it
+setopt beep ## beep on error
+setopt extendedglob ## http://www.refining-linux.org/archives/37/ZSH-Gem-2-Extended-globbing-and-expansion/
+setopt nomatch ## print error if a pattern for filename generation has no matches
+setopt notify ## report background job status immediately
+setopt correct ## autocorrects mistyped commands
+
+## suffix aliases: open extensions in preferred application
+alias -s html=firefox
+
+## global aliases: can be used anywhere in the command
+alias -g ...='../..'
+
+## Added by Justine 151001 for Redshift as described here:
+## https://cberhard.wordpress.com/2015/06/02/using-systemd-user-services/
+#case $DISPLAY:$XAUTHORITY in
+#  :*:?*)
+#    # DISPLAY is set and points to a local display, and XAUTHORITY is set,
+#    # so merge the contents of `$XAUTHORITY` into ~/.Xauthority
+#    XAUTHORITY=~/.Xauthority xauth merge "$XAUTHORITY";;
+#esac
+
+## zsh completion library, including git completion
+zstyle :compinstall filename '$XDG_CONFIG_HOME/zsh/.zshrc'
+autoload -Uz compinit
+compinit
+
+## theme for the prompt, needs to be at the end of this file
+## based on the Oh My ZSH theme terminalparty
+PROMPT='%(?,%{$fg[green]%},%{$fg[red]%}) $%{$reset_color%} '
+RPS1='%{$fg[white]%}%2~$(git_prompt_info) %{$fg_bold[blue]%}%m%{$reset_color%}'
+ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[yellow]%}("
+ZSH_THEME_GIT_PROMPT_SUFFIX=")%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_CLEAN=""
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%} ⚡%{$fg[yellow]%}"
+
+## for vimode shell, have prompt include which mode it is in
 function zle-line-init zle-keymap-select {
   case $KEYMAP in
     vicmd) print -rn -- $terminfo[cvvis];; # block cursor
     viins|main) print -rn -- $terminfo[cnorm];; # less visible cursor
   esac
-  VIMODE_PROMPT="${${KEYMAP/vicmd/[N]}/(main|viins)/[I]} $ "
-  #PS1=$VIMODE_PROMPT
+  PROMPT='%(?,%{$fg[green]%},%{$fg[red]%}) $%{$reset_color%} '
+  VIMODE_PROMPT="%{$fg[black]%}${${KEYMAP/vicmd/[N]}/(main|viins)/[I]}"
+  PS1=$VIMODE_PROMPT$PROMPT
   zle reset-prompt
 }
 
 zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=1
-
-## Added by Justine 151001 for Redshift as described here:
-## https://cberhard.wordpress.com/2015/06/02/using-systemd-user-services/
-case $DISPLAY:$XAUTHORITY in
-  :*:?*)
-    # DISPLAY is set and points to a local display, and XAUTHORITY is set,
-    # so merge the contents of `$XAUTHORITY` into ~/.Xauthority
-    XAUTHORITY=~/.Xauthority xauth merge "$XAUTHORITY";;
-esac
 

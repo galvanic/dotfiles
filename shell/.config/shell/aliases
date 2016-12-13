@@ -1,3 +1,4 @@
+## For a full list of active aliases, run `alias`
 
 #alias octave='octave --no-gui '
 alias ipynew='python $HOME/Dropbox/programming/projects/new_ipython_notebook.py'
@@ -56,10 +57,9 @@ export PROJECT_DIR=$HOME/Dropbox/programming/projects/
 alias proj='cd $PROJECT_DIR'
 alias prog='cd ~/Dropbox/programming'
 
-alias hist='history'
+alias hist='history | grep '
 #alias chmodof='stat -f "%OLp"'
 alias sizeof='du -h -d 1 -c' # See also ncdu
-alias short='export PS1="$ "'
 alias json='python -mjson.tool'
 
 alias up='cd ..'
@@ -82,7 +82,7 @@ alias map='xargs -n1'
 
 alias startserver='python -m http.server'
 
-#alias c='pygmentize -O style=manni -f console256 -g'
+alias c='pygmentize -O style=paraiso-dark -f console256 -g'
 
 ## linux aliases
 alias pbcopy='xclip -selection clipboard'

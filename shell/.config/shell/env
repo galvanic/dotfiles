@@ -36,3 +36,5 @@ export GIT_CONFIG=$XDG_CONFIG_HOME/git/config
 ## https://unix.stackexchange.com/questions/258679/why-is-ls-suddenly-wrapping-items-with-spaces-in-single-quotes
 export QUOTING_STYLE=literal
 
+## language environment
+export LANG=en_US.UTF-8
