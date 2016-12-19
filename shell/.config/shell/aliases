@@ -1,29 +1,17 @@
 ## For a full list of active aliases, run `alias`
 
-#alias octave='octave --no-gui '
-alias ipynew='python $HOME/Dropbox/programming/projects/new_ipython_notebook.py'
-function ipy {
-  filename=$1
-  if [[ ! ${filename##*\.} == ipynb ]]; then
-    filename=$filename'.ipynb'
-  fi
-  if [[ ! -s $filename ]]; then
-    ipynew $1
-  fi
-  jupyter notebook $filename
-}
-function getcode {
-  filename=$1
-  cat $filename | jq '.cells[] | select(.cell_type == "code") | .source | .[]' | sed 's/^.\(.*\).$/\1/' | sed 's/\\n//' | sed 's/\s*$//g'
-}
-alias editjup='vim $XDG_CONFIG_HOME/jupyter/nbconfig/notebook.json'
-alias editipy='editjup'
+alias reload_sound='pulseaudio -k && sudo alsa force-reload' # when sound messes up
 
-alias py='python'
-alias py2='python2'
-export PYTHONDONTWRITEBYTECODE=1  # no pycache folders
+alias L=less
+alias H=head
+alias T=tail
+alias G=grep
+alias C='wc -l'
+alias S=sort
 
-alias ls='ls -1Nv --color=always --group-directories-first'
+## --color=auto is important so that output to pipe is not coloured (ie. to use with xargs)
+## could also alias map to http://dev.mikamai.com/post/131744714649/piping-colors-with-xargs-in-the-unix-terminal
+alias ls='ls -1Nv --color=auto --group-directories-first'
 alias la='ls -A'
 alias ll='ls -lh'
 alias lt='ls -t'
@@ -31,15 +19,42 @@ alias lla='ls -Alh'
 alias tree='tree -C --dirsfirst -L 2'
 alias grep='grep --color'
 
-alias dl='cd $HOME/Downloads'
+alias x=exit
+alias open=xdg-open
+alias o=open
+
+##
+## Shortcuts applications
+##
+
+alias g=git
+alias gs='git status'
+alias gd='git diff'
 
 alias vi='vim'
+alias octave='octave --no-gui '
+
+##
+## Shortcuts directories
+##
+
+alias dl='cd $HOME/Downloads'
+alias prog='cd $HOME/Dropbox/programming/'
+alias proj='cd $HOME/Dropbox/programming/projects/'
+
+##
+## Config files shortcuts
+##
 
 alias editz='vim $XDG_CONFIG_HOME/zsh/.zshrc'
 alias edita='vim $XDG_CONFIG_HOME/shell/aliases'
 alias editv='vim $XDG_CONFIG_HOME/vim/vimrc'
 alias editenv='vim $XDG_CONFIG_HOME/shell/env'
-alias editt='vim $XDG_CONFIG_HOME/xfce4/terminal/terminalrc'
+alias editi3='vim $XDG_CONFIG_HOME/i3/config'
+
+##
+## Diary and notes shortcuts
+##
 
 export TODAY=$(date +%y%m%d)
 alias today='rem -n | sort | grep $(date +%Y/%m/%d) | cut -d " " -f 2-'
@@ -50,46 +65,83 @@ alias notes='cd $NOTES_DIR'
 alias newnote='vim $NOTES_DIR/diary/$TODAY.md'
 alias lastnote='notes && cd diary && vim $(ls -t | head -1)'
 
-alias t='todo.sh -d $XDG_CONFIG_HOME/todo.cfg'
-alias todo='vim $TODO_DIR/todo.txt'
-
-export PROJECT_DIR=$HOME/Dropbox/programming/projects/
-alias proj='cd $PROJECT_DIR'
-alias prog='cd ~/Dropbox/programming'
+##
+## Useful commands
+##
 
 alias hist='history | grep '
-#alias chmodof='stat -f "%OLp"'
-alias sizeof='du -h -d 1 -c' # See also ncdu
+alias latest='ls -lt | head'
+
 alias json='python -mjson.tool'
+alias server='python -m http.server'
+alias c='pygmentize -O style=paraiso-dark -f console256 -g'
 
-alias up='cd ..'
-alias upup='cd ../..'
-alias back='cd -'
+up(){ DEEP=$1; [ -z "${DEEP}" ] && { DEEP=1; }; for i in $(seq 1 ${DEEP}); do cd ../; done; }
+alias back='popd'
 
-## linux specific
-alias prolog=swipl
-alias open=xdg-open
-alias editpdf='xournal'
+function search { find . -iname "*$@*" }
 
-# IP addresses
-#alias ip='dig +short myip.opendns.com @resolver1.opendns.com'
-#alias localip='ipconfig getifaddr en1'
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
+function clip { [ -t 0 ] && pbpaste || pbcopy; }
+alias copy='tr -d "\n" | pbcopy'
+
+## clearer names
+alias chmodof='stat -f "%OLp"'
+alias sizeof='du -h -d 1 -c' # See also ncdu
+alias lsmounted='lsblk -f'
 
 # Intuitive map function
 # For example, to list all directories that contain a certain file:
 # find . -name .gitattributes | map dirname
 alias map='xargs -n1'
 
-alias startserver='python -m http.server'
+##
+## Network stuff
+##
 
-alias c='pygmentize -O style=paraiso-dark -f console256 -g'
-
-## linux aliases
-alias pbcopy='xclip -selection clipboard'
-alias pbpaste='xclip -selection clipboard -o'
-function clip { [ -t 0 ] && pbpaste || pbcopy; }
-alias copy='tr -d "\n" | pbcopy'
-
+alias publicip='dig +short myip.opendns.com @resolver1.opendns.com'
+alias localip='ip addr show wlp2s0'
 #alias adddns="echo 'nameserver 208.67.222.222' | sudo tee -a /etc/resolv.conf"
+alias whoelse='ping -b -c 2 255.255.255.255 2>&1 | grep "bytes from" | cut -d " " -f 4 | sort | uniq | sed -e "s/://g"'
 
-alias lsmounted='lsblk -f'
+##
+## Python
+##
+
+alias py='python'
+alias py2='python2'
+export PYTHONDONTWRITEBYTECODE=1  # no pycache folders
+
+##
+## IPython
+##
+
+alias ipynew='python $HOME/Dropbox/programming/projects/new_ipython_notebook.py'
+
+function ipy {
+  filename=$1
+  if [[ ! ${filename##*\.} == ipynb ]]; then
+    filename=$filename'.ipynb'
+  fi
+  if [[ ! -s $filename ]]; then
+    ipynew $1
+  fi
+  jupyter notebook $filename
+}
+
+function getcode {
+  filename=$1
+  cat $filename | jq '.cells[] | select(.cell_type == "code") | .source | .[]' | sed 's/^.\(.*\).$/\1/' | sed 's/\\n//' | sed 's/\s*$//g'
+}
+
+alias editjup='vim $XDG_CONFIG_HOME/jupyter/nbconfig/notebook.json'
+alias editipy='editjup'
+
+##
+## Todo.sh
+##
+
+alias t='todo.sh -d $XDG_CONFIG_HOME/todo.cfg'
+alias todo='vim $TODO_DIR/todo.txt'
+
