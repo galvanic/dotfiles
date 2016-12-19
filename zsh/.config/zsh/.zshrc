@@ -108,3 +108,13 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=1
 
+## Open new terminal in same directory
+## https://faq.i3wm.org/question/150/how-to-launch-a-terminal-from-here/
+newZle() {
+  zle push-line
+  BUFFER="setsid urxvt &>/dev/null"
+  zle accept-line
+}
+zle -N newZle
+bindkey '\e^M' newZle
+
