@@ -11,5 +11,5 @@
 [rerere]
 	enabled = true
 [core]
-	excludesfile = $XDG_CONFIG_HOME/git/gitignore-global
-	attributesfile =$XDG_CONFIG_HOME/git/gitattributes
+	excludesfile = ~/.config/git/gitignore-global
+	attributesfile = ~/.config/git/gitattributes
