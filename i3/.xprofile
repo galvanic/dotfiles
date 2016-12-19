@@ -1,0 +1,4 @@
+## execute commands at beginning of X user session, before window manager is started
+## Added by Justine on 151019 to remap the capslock key to escape
+## as found here: https://superuser.com/questions/566871/how-to-map-the-caps-lock-key-to-escape-key-in-arch-linux
+setxkbmap -option caps:escape

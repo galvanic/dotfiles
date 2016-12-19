@@ -1,0 +1,19 @@
+## https://wiki.archlinux.org/index.php/Xbindkeys
+
+"amixer --quiet set Master toggle"
+  XF86AudioMute
+
+"amixer --quiet set Master 2%-"
+  XF86AudioLowerVolume
+
+"amixer --quiet set Master 2%+"
+  XF86AudioRaiseVolume
+
+"xbacklight -dec 10"
+  XF86MonBrightnessDown
+
+"xbacklight -inc 10"
+  XF86MonBrightnessUp
+
+
+

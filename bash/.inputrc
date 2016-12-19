@@ -1,0 +1,7 @@
+## http://brettterpstra.com/2015/07/09/shell-tricks-inputrc-binding-fun/
+
+## ctrl z to go back to previous folder
+"\Cz": 'cd -\015'
+
+## 
+set bell-style none
