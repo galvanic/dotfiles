@@ -1,0 +1,11 @@
+# Zathura configuration file
+# See man `man zathurarc'
+
+# Open document in fit-width mode by default
+set adjust-open "width"
+
+## copy text to clipboard, instead of "primary" by default
+set selection-clipboard "clipboard"
+
+## font in the status bar at the bottom
+set font "inconsolata 12"
