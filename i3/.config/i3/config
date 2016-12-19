@@ -2,11 +2,12 @@
 # see /etc/i3/config for defaults
 #
 
-# Mod1 = Alt, Mod4 = Windows key
-set $mod Mod4
-
 # Font for window titles and bar (if not overwritten in bar block)
 font pango:monospace 8
+
+
+# Mod1 = Alt, Mod4 = Windows key
+set $mod Mod4
 
 # directions
 set $left  h
@@ -19,6 +20,7 @@ set $middle_mouse button2
 set $right_mouse  button3
 set $scroll_up    button4
 set $scroll_down  button5
+
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -70,7 +72,6 @@ bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
@@ -108,6 +109,7 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
+
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
@@ -186,5 +188,4 @@ bar {
 
 	status_command i3status #--config $XDG_CONFIG_HOME/i3status/config
 }
-
 
