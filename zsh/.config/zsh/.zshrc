@@ -12,8 +12,10 @@ DISABLE_AUTO_UPDATE="true"
 COMPLETION_WAITING_DOTS="true"
 
 HISTFILE=~/.history
-HISTSIZE=10000
+HISTSIZE=100000
+HISTFILESIZE=100000
 SAVEHIST=1000000
+HISTIGNORE="ls"
 
 # command execution time stamp shown in the history command output
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
