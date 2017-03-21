@@ -1,7 +1,6 @@
 # Path to oh-my-zsh installation
 ZSH=/usr/share/oh-my-zsh
 
-
 # interchangeable _ and -
 HYPHEN_INSENSITIVE="true"
 
@@ -85,8 +84,10 @@ compinit
 
 ## theme for the prompt, needs to be at the end of this file
 ## based on the Oh My ZSH theme terminalparty
-PROMPT='%(?,%{$fg[green]%},%{$fg[red]%}) $%{$reset_color%} '
-RPS1='%{$fg[white]%}%2~$(git_prompt_info) %{$fg_bold[blue]%}%m%{$reset_color%}'
+## TODO comment the different parts of the prompt
+## good tuto: https://code.tutsplus.com/tutorials/how-to-customize-your-command-prompt--net-24083
+PROMPT='%(?,%{$fg[green]%},%{$fg[red]%}) $%{$reset_color%} ' ## dollar sign depending on exit code
+RPS1='%{$fg[white]%}%2~$(git_prompt_info) %{$fg_bold[blue]%}%m%{$reset_color%}' ## pwd user
 ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[yellow]%}("
 ZSH_THEME_GIT_PROMPT_SUFFIX=")%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
@@ -98,9 +99,11 @@ function zle-line-init zle-keymap-select {
     vicmd) print -rn -- $terminfo[cvvis];; # block cursor
     viins|main) print -rn -- $terminfo[cnorm];; # less visible cursor
   esac
+  ## TODO why do I need to repeat PROMPT here ?
   PROMPT='%(?,%{$fg[green]%},%{$fg[red]%}) $%{$reset_color%} '
   VIMODE_PROMPT="%{$fg[black]%}${${KEYMAP/vicmd/[N]}/(main|viins)/[I]}"
-  PS1=$VIMODE_PROMPT$PROMPT
+  PS1='
+ '$VIMODE_PROMPT$PROMPT
   zle reset-prompt
 }
 
