@@ -11,7 +11,8 @@ export VIRTUALENVWRAPPER_PYTHON=`which python`
 export VIRTUALENVWRAPPER_VIRTUALENV=`which virtualenv`
 source `which virtualenvwrapper.sh`
 
-## Added by Justine for GPG Suite on 140531 (to not have the passphrase entry box pop out of Terminal)
+## Added by Justine for GPG Suite (to not have the passphrase entry box pop out of Terminal)
+export GNUPGHOME=$XDG_CONFIG_HOME/gnupg/
 export PINENTRY_USER_DATA='USE_CURSES=1'
 
 ## Added by Justine 150303 for todo.sh
