@@ -1,6 +1,7 @@
 ## Added by Justine
 export VISUAL=vim
 export EDITOR=$VISUAL
+export TERMINAL=urxvt
 
 ## Added by Justine for virtualenvwrapper 140309
 #export HOOK_VERBOSE_OPTION=-vvvv
