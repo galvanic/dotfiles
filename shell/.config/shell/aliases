@@ -1,5 +1,8 @@
 ## For a full list of active aliases, run `alias`
 
+alias curr='iproov; cd cluster-digits/; tree' ## current project
+alias iproov='prog; cd iproov/'
+
 alias reload_sound='pulseaudio -k && sudo alsa force-reload' # when sound messes up
 
 alias L=less
@@ -49,8 +52,10 @@ alias proj='cd $HOME/Dropbox/programming/projects/'
 alias editz='vim $XDG_CONFIG_HOME/zsh/.zshrc'
 alias edita='vim $XDG_CONFIG_HOME/shell/aliases'
 alias editv='vim $XDG_CONFIG_HOME/vim/vimrc'
+alias editvimp='vim $HOME/.vimperatorrc'
 alias editenv='vim $XDG_CONFIG_HOME/shell/env'
 alias editi3='vim $XDG_CONFIG_HOME/i3/config'
+alias editi3bar='vim $XDG_CONFIG_HOME/i3status/config'
 
 ##
 ## Diary and notes shortcuts
@@ -101,6 +106,7 @@ alias map='xargs -n1'
 ##
 
 alias publicip='dig +short myip.opendns.com @resolver1.opendns.com'
+## alias publicip='curl -Ss icanhazip.com'
 alias localip='ip addr show wlp2s0'
 #alias adddns="echo 'nameserver 208.67.222.222' | sudo tee -a /etc/resolv.conf"
 alias whoelse='ping -b -c 2 255.255.255.255 2>&1 | grep "bytes from" | cut -d " " -f 4 | sort | uniq | sed -e "s/://g"'
