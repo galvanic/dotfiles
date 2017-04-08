@@ -17,6 +17,11 @@ urxvt*perl-ext: default,url-select,clipboard
 urxvt*keysym*Shift-Control-V: perl:clipboard:paste
 urxvt*keysym*Shift-Control-C: perl:clipboard:copy
 
+! make links clickable
+URxvt.urlLauncher: firefox
+URxvt.matcher.button: true
+URxvt.perl-ext-common: matcher,readline
+
 ! disable the weird ctrl-shift default behaviour
 urxvt*iso14755: false
 urxvt*iso14755_52: false
