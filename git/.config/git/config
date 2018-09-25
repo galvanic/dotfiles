@@ -13,8 +13,12 @@
 [core]
 	excludesfile = ~/.config/git/gitignore-global
 	attributesfile = ~/.config/git/gitattributes
-[status]
-	showUntrackedFiles = all ## shows individual files in untracked directories
 [transfer]
 	fsckobjects = false ## true will check all fetched objects, helps against data corruption
-
+[status]
+	showUntrackedFiles = all ## shows individual files in untracked directories
+	submodulesummary = true ## makes it easier to work with submodules
+[diff]
+	submodule = log ## makes it easier to work with submodules
+[fetch]
+	recurseSubmodules = on-demand ## makes it easier to work with submodules
