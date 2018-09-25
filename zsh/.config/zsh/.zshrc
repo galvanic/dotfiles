@@ -36,6 +36,7 @@ export CLICOLOR_FORCE=1
 
 export PATH=$HOME/bin:usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
+export PYTHONPATH=:$PYTHONPATH ## so that it includes current directory
 
 # check for updates, init shell
 source $ZSH/oh-my-zsh.sh

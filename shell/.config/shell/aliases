@@ -1,24 +1,17 @@
 ## For a full list of active aliases, run `alias`
 
-alias curr='iproov; cd cluster-digits/; tree' ## current project
-alias iproov='prog; cd iproov/'
+alias refresha='source ~/dotfiles/shell/.config/shell/aliases'
 
 alias reload_sound='pulseaudio -k && sudo alsa force-reload' # when sound messes up
 
-alias L=less
-alias H=head
-alias T=tail
-alias G=grep
-alias C='wc -l'
-alias S=sort
 
 ## --color=auto is important so that output to pipe is not coloured (ie. to use with xargs)
 ## could also alias map to http://dev.mikamai.com/post/131744714649/piping-colors-with-xargs-in-the-unix-terminal
 alias ls='ls -1Nv --color=auto --group-directories-first'
 alias la='ls -A'
-alias ll='ls -lh'
+alias ll='ls -lhi'
 alias lt='ls -t'
-alias lla='ls -Alh'
+alias lla='ls -Alhi'
 alias tree='tree -C --dirsfirst -L 2'
 alias grep='grep --color'
 
@@ -80,7 +73,7 @@ alias latest='ls -lt | head'
 alias json='python -m json.tool'
 alias server='python -m http.server'
 alias c='pygmentize -O style=paraiso-dark -f console256 -g'
-cl(){ c $1 | less }
+cl() { c $1 | less }
 
 up(){ DEEP=$1; [ -z "${DEEP}" ] && { DEEP=1; }; for i in $(seq 1 ${DEEP}); do cd ../; done; }
 alias back='popd'

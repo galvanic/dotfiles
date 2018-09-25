@@ -8,6 +8,7 @@ urxvt*font: xft:Inconsolata:size=14
 urxvt*fading: 30
 
 ! transparency (fake)
+urxvt*inheritpixmap: true
 urxvt*transparent: true
 urxvt*shading: 15
 
