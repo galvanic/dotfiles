@@ -12,6 +12,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 " my bundles
 "Plugin 'Valloric/YouCompleteMe'           " text completion
+Plugin 'ctrlp.vim'                        " fuzzy file finder
 Plugin 'tpope/vim-surround'               " to wrap object with quotes or anything else
 Plugin 'jpalardy/vim-slime'               " to send text from vim to a REPL/tmux/etc.
 Plugin 'easymotion/vim-easymotion'        " to go quickly to things in the window
@@ -28,14 +29,22 @@ Plugin 'MarcWeber/vim-addon-mw-utils'     " for SnipMate
 Plugin 'tomtom/tlib_vim'                  " for SnipMate
 Plugin 'garbas/vim-snipmate'              " snippets
 Plugin 'amix/vim-zenroom2'                " iA Writer environment when editing Markdown, reStructuredText or text files
+Plugin 'ap/vim-css-color'                 " background colours in CSS
 
 call vundle#end()
 filetype plugin on " enable filetype plugins (required for vundle)
 filetype indent on " load filetype-specific indent files
 
+syntax enable " enable syntax processing
+set t_Co=256
+colorscheme wombat256
+
+let mapleader = "\<Space>"
+
 " easy_motions plugin settings
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
-nnoremap s <Plug>(easymotion-s)
+let g:EasyMotion_do_mapping = 0 " Disable default mappings by the plugin author, so that I do my own mappings
+let g:EasyMotion_smartcase = 1 " case insensitive
+nmap s <Plug>(easymotion-s)
 
 " Goyo plugin settings to make :q quit vim, not just Goyo
 function! s:goyo_enter()
@@ -66,9 +75,14 @@ autocmd User GoyoLeave :highlight Normal ctermbg=none
 " Limelight plugin settings
 let g:limelight_conceal_ctermfg = 236
 
-syntax enable " enable syntax processing
-set t_Co=256
-colorscheme wombat256
+" Ctrl-P plugin settings
+let g:ctrlp_map = '<Leader>t'
+let g:ctrlp_match_window_bottom = 0
+let g:ctrlp_match_window_reversed = 0
+let g:ctrlp_custom_ignore = '\v\~$|\.(o|exe|swp|pyc|wav|mp3|ogg|blend)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_dotfiles = 0
+let g:ctrlp_switch_buffer = 0
 
 " indent guide plugin settings
 " colors here: http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
@@ -90,8 +104,6 @@ autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 " don't automatically make a comment line when new line under a comment
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-let mapleader = "\<Space>"
-
 " Goyo keybindings
 nmap <leader>g :Goyo<cr>
 nmap <leader>l :Limelight!!<cr>
@@ -105,7 +117,7 @@ set magic       " regular expressions
 set incsearch   " search as characters are entered
 set ignorecase
 set smartcase
-nnoremap <leader><space> :nohlsearch<cr>
+nnoremap q :nohlsearch<cr>
 autocmd InsertEnter * :setlocal nohlsearch
 " my workaround, but it doesn't work if I search again using / or ?
 nnoremap n n:silent set hlsearch<cr>
@@ -115,10 +127,10 @@ nnoremap U <C-r>  " map shift+U to redo
 
 " folding options
 set foldenable
-set foldlevelstart=10   " open most folds by default
-set foldnestmax=10      " 10 nested fold max
-nnoremap f za           " f open/closes folds
-set foldmethod=indent   " fold based on indent level
+set foldlevelstart=10       " open most folds by default
+set foldnestmax=10          " 10 nested fold max
+nnoremap <leader><space> za " open/closes folds
+set foldmethod=indent       " fold based on indent level
 
 set encoding=utf-8
 
@@ -224,6 +236,10 @@ nnoremap J :wincmd j<CR>
 nnoremap K :wincmd k<CR>
 nnoremap H :wincmd h<CR>
 nnoremap L :wincmd l<CR>
+
+" Every time you forget to sudo before opening a file and you do not have the rights to save it, you just :w!!, write the superuser password and the file gets saved.
+" https://blog.palcu.ro/2014/06/dotfiles-and-dev-tools-provisioned-by.html
+cmap w!! w !sudo tee % >/dev/null
 
 
 set title         " show the filename in the window titlebar
