@@ -77,7 +77,7 @@ alias lastnote='notes && cd diary && vim $(ls -t | head -1)'
 alias hist='history | grep '
 alias latest='ls -lt | head'
 
-alias json='python -mjson.tool'
+alias json='python -m json.tool'
 alias server='python -m http.server'
 alias c='pygmentize -O style=paraiso-dark -f console256 -g'
 cl(){ c $1 | less }

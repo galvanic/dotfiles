@@ -22,6 +22,7 @@ HIST_STAMPS="yyyy-mm-dd"
 
 # load plugins (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+## TODO comment on what these plugins do
 plugins=(git extract z)
 
 # User configuration

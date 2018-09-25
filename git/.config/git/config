@@ -13,3 +13,8 @@
 [core]
 	excludesfile = ~/.config/git/gitignore-global
 	attributesfile = ~/.config/git/gitattributes
+[status]
+	showUntrackedFiles = all ## shows individual files in untracked directories
+[transfer]
+	fsckobjects = false ## true will check all fetched objects, helps against data corruption
+
