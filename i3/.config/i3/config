@@ -155,7 +155,6 @@ hide_edge_borders both
 
 ## autostart programs
 exec --no-startup-id ~/.fehbg
-exec --no-startup-id xautolock -time 1 -locker 'i3lock -u -e --image ~/Dropbox/backups/160923-backups/cat-pictures/interlaced3.png'
 
 ## keybindings
 bindsym $mod+0 exec --no-startup-id i3lock -u -e --image ~/Dropbox/backups/160923-backups/cat-pictures/interlaced3.png
