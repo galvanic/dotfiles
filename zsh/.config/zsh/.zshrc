@@ -29,16 +29,21 @@ plugins=(git extract z)
 
 ## Added by Justine to add colours to terminal 140309
 ## https://miaobaozhen.blogspot.co.uk/2012/08/how-to-solve-ls-unparsable-value-for.html
-[ -z $LS_COLORS ] && eval `dircolors -b $XDG_CONFIG_HOME/shell/dir_colors`
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 export CLICOLOR=1
 export CLICOLOR_FORCE=1
+## make it compatible with OS X: https://unix.stackexchange.com/questions/91937/mac-os-x-dircolors-not-found/91978#91978
+if whence dircolors >/dev/null; then
+  [ -z $LS_COLORS ] && eval `dircolors -b $XDG_CONFIG_HOME/shell/dir_colors`
+  zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+else
+  zstyle ':completion:*' list-colors ''
+fi
 
 export PATH=$HOME/bin:usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 export PYTHONPATH=:$PYTHONPATH ## so that it includes current directory
 
-# check for updates, init shell
+## initialise shell via oh-my-zsh /!\ gives options from oh-my-zsh
 mkdir -p /tmp/zsh/
 export ZSH_COMPDUMP="/tmp/zsh/zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
 source $ZSH/oh-my-zsh.sh
