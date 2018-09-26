@@ -1,3 +1,8 @@
+
+if [[ $OSTYPE == darwin* ]]; then
+  source $XDG_CONFIG_HOME/shell/osx
+fi
+
 # Path to oh-my-zsh installation
 if [ -d "$HOME/.oh-my-zsh" ]; then
   ZSH="$HOME/.oh-my-zsh"

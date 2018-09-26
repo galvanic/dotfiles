@@ -1,0 +1,5 @@
+
+## to make gnu coreutils work with default names (without g prepended)
+PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+
