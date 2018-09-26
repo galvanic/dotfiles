@@ -1,5 +1,9 @@
 # Path to oh-my-zsh installation
-ZSH=/usr/share/oh-my-zsh
+if [ -d "$HOME/.oh-my-zsh" ]; then
+  ZSH="$HOME/.oh-my-zsh"
+else
+  ZSH=/usr/share/oh-my-zsh
+fi
 
 # interchangeable _ and -
 HYPHEN_INSENSITIVE="true"
