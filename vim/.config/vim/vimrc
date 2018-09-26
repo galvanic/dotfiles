@@ -11,8 +11,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " my bundles
-"Plugin 'Valloric/YouCompleteMe'           " text completion
-Plugin 'ctrlp.vim'                        " fuzzy file finder
+Plugin 'Valloric/YouCompleteMe'           " text completion
 Plugin 'tpope/vim-surround'               " to wrap object with quotes or anything else
 Plugin 'jpalardy/vim-slime'               " to send text from vim to a REPL/tmux/etc.
 Plugin 'easymotion/vim-easymotion'        " to go quickly to things in the window
@@ -44,7 +43,7 @@ let mapleader = "\<Space>"
 " easy_motions plugin settings
 let g:EasyMotion_do_mapping = 0 " Disable default mappings by the plugin author, so that I do my own mappings
 let g:EasyMotion_smartcase = 1 " case insensitive
-nmap s <Plug>(easymotion-s)
+nnoremap s <Plug>(easymotion-s)
 
 " Goyo plugin settings to make :q quit vim, not just Goyo
 function! s:goyo_enter()
@@ -75,14 +74,11 @@ autocmd User GoyoLeave :highlight Normal ctermbg=none
 " Limelight plugin settings
 let g:limelight_conceal_ctermfg = 236
 
-" Ctrl-P plugin settings
-let g:ctrlp_map = '<Leader>t'
-let g:ctrlp_match_window_bottom = 0
-let g:ctrlp_match_window_reversed = 0
-let g:ctrlp_custom_ignore = '\v\~$|\.(o|exe|swp|pyc|wav|mp3|ogg|blend)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_dotfiles = 0
-let g:ctrlp_switch_buffer = 0
+" YouCompleteMe plugin settings
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+set completeopt-=preview
 
 " indent guide plugin settings
 " colors here: http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
@@ -112,6 +108,10 @@ set lazyredraw    " redraw only when we need to.
 set numberwidth=1 " space between left window edge and number
 set ruler         " numbers in bottom right corner showing row and column number
 
+" split options - open new split panes to right and bottom, which feels more natural than Vim’s default
+set splitbelow
+set splitright
+
 " search options
 set magic       " regular expressions
 set incsearch   " search as characters are entered
@@ -127,10 +127,10 @@ nnoremap U <C-r>  " map shift+U to redo
 
 " folding options
 set foldenable
-set foldlevelstart=10       " open most folds by default
-set foldnestmax=10          " 10 nested fold max
-nnoremap <leader><space> za " open/closes folds
-set foldmethod=indent       " fold based on indent level
+set foldlevelstart=10   " open most folds by default
+set foldnestmax=10      " 10 nested fold max
+nnoremap f za           " f open/closes folds
+set foldmethod=indent   " fold based on indent level
 
 set encoding=utf-8
 
