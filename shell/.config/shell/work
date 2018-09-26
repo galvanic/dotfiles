@@ -1,0 +1,52 @@
+
+##
+## functions for work (data analysis etc.)
+##
+
+export TODAY=$(date +%y%m%d)
+
+export TF_CPP_MIN_LOG_LEVEL=2 ## disable tf warnings
+
+grepc() {
+  cd $PROG
+  grep -r -I --color=always "$@" | grep -v "\.git" | less -R
+}
+
+alias printdf=$HOME/synced_locally/prog/scripts/print_df.py
+alias inspect_weights=$HOME/synced_locally/prog/scripts/inspect_saved_weights.py
+
+image_grid() {
+  ## TODO default show all images
+  ## TODO example usage of this function ?
+  size=${1:-200}
+  cat | xargs feh --montage --thumb-height $size --thumb-width $size --limit-width 2560
+}
+
+##
+## DATA ANALYSIS / FILTERING SCRIPTS
+##
+
+skip() {
+  num_lines_to_skip_at_beginning=$1
+  line_no_to_start_at=$(($num_lines_to_skip_at_beginning+1))
+  cat | tail -n +$line_no_to_start_at
+}
+
+every() {
+  shift=${2:-0}
+  cat | skip $shift | awk -v every=$1 '(NR-1+every) % every == 0'
+}
+
+between() {
+  first_line=$1
+  last_line=$2
+  cat | grep "$first_line" --after-context=10000 | grep "$last_line" --before-context=10000 --max-count=1
+}
+
+duration() {
+  ## Given 2 dates in specific format, calculate elapsed time between them
+  startDate=$1
+  endDate=$2
+  date -u -d "0 $(date -u -d $endDate +"%s.%N") sec - $(date -u -d $startDate +"%s.%N") sec" +"%S.%N"
+}
+
