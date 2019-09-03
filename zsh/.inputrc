@@ -1,3 +1,5 @@
+
+## vim keybindings
 set editing-mode vi
 
 $if mode=vi

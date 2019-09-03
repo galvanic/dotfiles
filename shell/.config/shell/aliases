@@ -28,7 +28,6 @@ alias g=git
 alias gs='git status'
 alias gd='git diff'
 
-alias vi='vim'
 alias octave='octave --no-gui '
 
 ##
@@ -50,6 +49,7 @@ alias editvimp='vim $HOME/.vimperatorrc'
 alias editenv='vim $XDG_CONFIG_HOME/shell/env'
 alias editi3='vim $XDG_CONFIG_HOME/i3/config'
 alias editi3bar='vim $XDG_CONFIG_HOME/i3status/config'
+alias editw='vim $XDG_CONFIG_HOME/shell/work'
 
 ##
 ## Diary and notes shortcuts
@@ -70,6 +70,8 @@ alias lastnote='notes && cd diary && vim $(ls -t | head -1)'
 
 alias hist='history | grep '
 alias latest='ls -lt | head'
+
+alias workoff='deactivate' ## to mimic virtualenvwrapper
 
 alias json='python -m json.tool'
 alias server='python -m http.server'

@@ -9,11 +9,11 @@ fi
 ## Added by Justine for virtualenvwrapper 140309
 #export HOOK_VERBOSE_OPTION=-vvvv
 export WORKON_HOME=$HOME/.virtualenvs/
-export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME
-export PROJECT_HOME=$PROJECT_DIR
-export VIRTUALENVWRAPPER_PYTHON=`which python`
-export VIRTUALENVWRAPPER_VIRTUALENV=`which virtualenv`
-source `which virtualenvwrapper.sh`
+#export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME
+#export PROJECT_HOME=$PROJECT_DIR
+#export VIRTUALENVWRAPPER_PYTHON=`which python`
+#export VIRTUALENVWRAPPER_VIRTUALENV=`which virtualenv`
+#source `which virtualenvwrapper.sh`
 
 ## Added by Justine for GPG Suite (to not have the passphrase entry box pop out of Terminal)
 export GNUPGHOME=$XDG_CONFIG_HOME/gnupg/
