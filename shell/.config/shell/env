@@ -43,3 +43,12 @@ export QUOTING_STYLE=literal
 
 ## language environment
 export LANG=en_US.UTF-8
+
+## added by justine 181112 for python interactive shell startup
+export PYTHONSTARTUP=$HOME'/dotfiles/shell/.config/shell/pythonrc.py'
+
+## added by justine 181219 https://linux.101hacks.com/cd-command/cdpath/
+export CDPATH=.:~
+
+## for YouCompleteMe to work with pyenv, see install instructions
+export PYTHON_CONFIGURE_OPTS='--enable-framework'
