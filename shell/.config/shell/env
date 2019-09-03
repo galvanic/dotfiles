@@ -1,7 +1,10 @@
 ## Added by Justine
 export VISUAL=vim
 export EDITOR=$VISUAL
-export TERMINAL=urxvt
+
+if [[ $OSTYPE == linux-gnu ]]; then
+  export TERMINAL=urxvt
+fi
 
 ## Added by Justine for virtualenvwrapper 140309
 #export HOOK_VERBOSE_OPTION=-vvvv
