@@ -1,16 +1,19 @@
 ## Added by Justine
 export VISUAL=vim
 export EDITOR=$VISUAL
-export TERMINAL=urxvt
+
+if [[ $OSTYPE == linux-gnu ]]; then
+  export TERMINAL=urxvt
+fi
 
 ## Added by Justine for virtualenvwrapper 140309
 #export HOOK_VERBOSE_OPTION=-vvvv
 export WORKON_HOME=$HOME/.virtualenvs/
-export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME
-export PROJECT_HOME=$PROJECT_DIR
-export VIRTUALENVWRAPPER_PYTHON=`which python`
-export VIRTUALENVWRAPPER_VIRTUALENV=`which virtualenv`
-source `which virtualenvwrapper.sh`
+#export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME
+#export PROJECT_HOME=$PROJECT_DIR
+#export VIRTUALENVWRAPPER_PYTHON=`which python`
+#export VIRTUALENVWRAPPER_VIRTUALENV=`which virtualenv`
+#source `which virtualenvwrapper.sh`
 
 ## Added by Justine for GPG Suite (to not have the passphrase entry box pop out of Terminal)
 export GNUPGHOME=$XDG_CONFIG_HOME/gnupg/
@@ -40,3 +43,12 @@ export QUOTING_STYLE=literal
 
 ## language environment
 export LANG=en_US.UTF-8
+
+## added by justine 181112 for python interactive shell startup
+export PYTHONSTARTUP=$HOME'/dotfiles/shell/.config/shell/pythonrc.py'
+
+## added by justine 181219 https://linux.101hacks.com/cd-command/cdpath/
+export CDPATH=.:~
+
+## for YouCompleteMe to work with pyenv, see install instructions
+export PYTHON_CONFIGURE_OPTS='--enable-framework'

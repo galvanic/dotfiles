@@ -9,6 +9,10 @@
 [color]
 	ui = auto
 	status = always
+	diff = auto
+	branch = auto
+	interactive = auto
+	pager = true
 [rerere]
 	enabled = true
 [core]

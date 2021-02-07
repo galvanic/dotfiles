@@ -48,9 +48,16 @@ else
   zstyle ':completion:*' list-colors ''
 fi
 
-export PATH=$HOME/bin:usr/local/bin:$PATH
+#export PATH=$HOME/bin:usr/local/bin:$PATH ## TODO why this ??
 # export MANPATH="/usr/local/man:$MANPATH"
 export PYTHONPATH=:$PYTHONPATH ## so that it includes current directory
+
+## for pyenv and virtualenvwrapper
+export PYENV_ROOT="$HOME/.pyenv"
+eval "$(pyenv init -)"
+#eval "$(pyenv virtualenv-init -)" ## can actually cause problems
+export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+pyenv virtualenvwrapper_lazy
 
 ## initialise shell via oh-my-zsh /!\ gives options from oh-my-zsh
 mkdir -p /tmp/zsh/
@@ -80,6 +87,7 @@ setopt correct ## autocorrects mistyped commands
 setopt autocd ## if the command is the name of a directory, cd into it
 setopt extendedglob ## http://www.refining-linux.org/archives/37/ZSH-Gem-2-Extended-globbing-and-expansion/
 setopt globdots ## zsh completion to show hidden files and folders
+setopt ksh_glob ## fancy globbing possibilities
 
 ## from https://coderwall.com/p/jpj_6q/zsh-better-history-searching-with-arrow-keys
 autoload -U up-line-or-beginning-search
@@ -90,7 +98,7 @@ bindkey "^[[A" up-line-or-beginning-search # Up
 bindkey "^[[B" down-line-or-beginning-search # Down
 
 ## suffix aliases: open extensions in preferred application
-alias -s html=firefox
+alias -s html=chrome
 
 ## global aliases: can be used anywhere in the command
 alias -g ...='../..'
@@ -106,6 +114,8 @@ alias -g ...='../..'
 
 ## zsh completion library, including git completion
 zstyle :compinstall filename '$XDG_CONFIG_HOME/zsh/.zshrc'
+## from https://unix.stackexchange.com/questions/433009/dont-suggest-current-directory-in-autocomplete/433029#433029
+zstyle ':completion:*:(cd|mv|cp):*' ignore-parents parent pwd
 ## below not needed since it's in oh-my-zsh
 #autoload -Uz compinit
 ## from https://unix.stackexchange.com/questions/391641/separate-path-for-zcompdump-files
@@ -115,8 +125,9 @@ zstyle :compinstall filename '$XDG_CONFIG_HOME/zsh/.zshrc'
 ## based on the Oh My ZSH theme terminalparty
 ## TODO comment the different parts of the prompt
 ## good tuto: https://code.tutsplus.com/tutorials/how-to-customize-your-command-prompt--net-24083
+## find custom colour numbers via spectrum_ls command (from https://gabri.me/blog/custom-colors-in-your-zsh-prompt)
 PROMPT='%(?,%{$fg[green]%},%{$fg[red]%}) $%{$reset_color%} ' ## dollar sign depending on exit code
-RPS1='%{$fg[white]%}%2~$(git_prompt_info) %{$fg[blue]%}%m%{$reset_color%}' ## pwd user
+RPS1='%{$fg[white]%} %2~$(git_prompt_info) %{$fg[blue]%}%m%{$reset_color%}' ## pwd user
 ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[yellow]%}("
 ZSH_THEME_GIT_PROMPT_SUFFIX=")%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
@@ -130,7 +141,7 @@ function zle-line-init zle-keymap-select {
   esac
   ## TODO why do I need to repeat PROMPT here ?
   PROMPT='%(?,%{$fg[green]%},%{$fg[red]%}) $%{$reset_color%} '
-  VIMODE_PROMPT="%{$fg[black]%}${${KEYMAP/vicmd/[N]}/(main|viins)/[I]}"
+  VIMODE_PROMPT="%{$FG[238]%}${${KEYMAP/vicmd/[N]}/(main|viins)/[I]}"
   PS1='
  '$VIMODE_PROMPT$PROMPT
   zle reset-prompt

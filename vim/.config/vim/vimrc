@@ -127,10 +127,16 @@ nnoremap U <C-r>  " map shift+U to redo
 
 " folding options
 set foldenable
+set foldmethod=indent   " fold based on indent level
 set foldlevelstart=10   " open most folds by default
 set foldnestmax=10      " 10 nested fold max
 nnoremap f za           " f open/closes folds
-set foldmethod=indent   " fold based on indent level
+" set dark colours (see spectrum_ls)
+highlight Folded ctermbg=000
+highlight Folded ctermfg=238
+" esthetic of what characters represent the fold
+set foldtext=v:
+set fillchars=fold:_
 
 set encoding=utf-8
 
@@ -150,6 +156,7 @@ autocmd Filetype octave setlocal ts=2 sts=2 sw=2 expandtab
 
 set list                      " list disables linebreak
 set listchars=tab:»\ ,trail:· " how whitespace looks (trailing spaces, tabulations)
+" interesting options for dealing with long lines: https://agilesysadmin.net/how-to-manage-long-lines-in-vim/
 
 " set timeout for pressing a key after another key (eg. useful for oo binding)
 set timeout timeoutlen=200 ttimeoutlen=0
@@ -190,14 +197,14 @@ inoremap <silent> <Esc> <Esc>`^
 " crosshair effect on cursor position
 set cursorline
 set cursorcolumn
+highlight CursorLine   ctermbg=233
+highlight CursorColumn ctermbg=233
 
 nnoremap oo o<Esc>o
 nnoremap OO O<Esc>O
 
 " key bindings for beginning and end of lines
 nnoremap 0 ^
-nnoremap H ^
-nnoremap L $
 vnoremap $ $h
 
 " make delete to beginning of word behave the way I keep expecting it to work
@@ -231,16 +238,28 @@ nnoremap - ''
 " change case
 nnoremap ~ ~h
 
+" backwards indent
+nnoremap <S-Tab> <<
+inoremap <S-Tab> <C-D> " doesn't work :(
+vnoremap <S-Tab> <
+
 " move between buffers
 nnoremap J :wincmd j<CR>
 nnoremap K :wincmd k<CR>
 nnoremap H :wincmd h<CR>
 nnoremap L :wincmd l<CR>
 
+" :W also writes, to avoid getting vim errors when accidently capitalising
+" from https://stackoverflow.com/questions/3878692/aliasing-a-command-in-vim/3879737#3879737
+cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
+
 " Every time you forget to sudo before opening a file and you do not have the rights to save it, you just :w!!, write the superuser password and the file gets saved.
 " https://blog.palcu.ro/2014/06/dotfiles-and-dev-tools-provisioned-by.html
 cmap w!! w !sudo tee % >/dev/null
 
+" remove whitespace
+" from http://vim.wikia.com/wiki/Remove_unwanted_spaces
+nnoremap <silent> <Space>w :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
 
 set title         " show the filename in the window titlebar
 set scrolloff=10  " start scrolling three lines before the horizontal window border
@@ -272,7 +291,8 @@ set wildmenu                    " visual autocomplete for command menu
 set wildignore=*~,*.pyc         " ignore compiled files
 
 set noerrorbells " no annoying sound on errors
-set visualbell   " this seems to actually kill the sound on error
+set visualbell   " sets visual bell (flashing) instead of audio
+set t_vb=        " clearing the visual bell length deactivates flashing
 
 " dim logging statements
 highlight logStatement ctermfg=241
@@ -282,7 +302,11 @@ let &printexpr="(v:cmdarg=='' ? ".
     \". ' ' . v:fname_in) . delete(v:fname_in) + v:shell_error".
     \" : system('mv '.v:fname_in.' '.v:cmdarg) + v:shell_error)"
 
-" return to last edit position when opening files
+" last edit position and fold status persists between sessions
+" from https://til.hashrocket.com/posts/17c44eda91-persistent-folds-between-vim-sessions
 " doesn't work with Goyo
-autocmd BufWinLeave * :mkview
-autocmd BufReadPost * :loadview
+augroup remember_folds
+  autocmd!
+  autocmd BufWinLeave * mkview
+  autocmd BufWinEnter * silent! loadview
+augroup END

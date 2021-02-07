@@ -1,0 +1,25 @@
+#!/bin/sh
+# Credit to Brad Howes
+FROM='"HIDKeyboardModifierMappingSrc"'
+TO='"HIDKeyboardModifierMappingDst"'
+
+function remap_keys
+{
+    CMD="${CMD:+${CMD},}{${FROM}: ${1}, ${TO}: ${2}}"
+}
+
+# https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-1035.41.2/IOHIDFamily/IOHIDUsageTables.h.auto.html
+SECTION="0x700000064"
+ESCAPE="0x700000029"
+BACKQUOTE="0x700000035"
+CAPS_LOCK="0x700000039"
+L_SHIFT="0x7000000E1"
+R_COMMAND="0x7000000E7"
+L_CONTROL="0x7000000E0"
+
+remap_keys ${CAPS_LOCK} ${ESCAPE}
+#remap_keys ${SECTION} ${ESCAPE}
+#remap_keys ${R_COMMAND} ${SHIFT_LOCK}
+#remap_keys ${BACKQUOTE} ${L_CONTROL}
+
+hidutil property --set "{\"UserKeyMapping\":[${CMD}]}"
