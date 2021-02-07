@@ -116,7 +116,7 @@ zstyle :compinstall filename '$XDG_CONFIG_HOME/zsh/.zshrc'
 ## TODO comment the different parts of the prompt
 ## good tuto: https://code.tutsplus.com/tutorials/how-to-customize-your-command-prompt--net-24083
 PROMPT='%(?,%{$fg[green]%},%{$fg[red]%}) $%{$reset_color%} ' ## dollar sign depending on exit code
-RPS1='%{$fg[white]%}%2~$(git_prompt_info) %{$fg_bold[blue]%}%m%{$reset_color%}' ## pwd user
+RPS1='%{$fg[white]%}%2~$(git_prompt_info) %{$fg[blue]%}%m%{$reset_color%}' ## pwd user
 ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[yellow]%}("
 ZSH_THEME_GIT_PROMPT_SUFFIX=")%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
