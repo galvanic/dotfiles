@@ -4,7 +4,7 @@
 
 ! aesthetics
 urxvt*scrollBar: false
-urxvt*font: xft:Inconsolata:size=14
+urxvt*font: xft:Inconsolata:size=14,xft:DejaVu Sans Mono:size:14,xft:Source Code Pro:size:14
 urxvt*fading: 30
 
 ! transparency (fake)
@@ -19,7 +19,7 @@ urxvt*keysym*Shift-Control-V: perl:clipboard:paste
 urxvt*keysym*Shift-Control-C: perl:clipboard:copy
 
 ! make links clickable
-URxvt.urlLauncher: firefox
+URxvt.urlLauncher: chromium
 URxvt.matcher.button: true
 URxvt.perl-ext-common: matcher,readline
 
@@ -31,6 +31,8 @@ urxvt*iso14755_52: false
 urxvt*foreground: white
 urxvt*background: black
 
+! more colorschemes: https://github.com/mbadolato/iTerm2-Color-Schemes
+! below is the Tango Dark colorscheme
 *color0:  #2E3436
 *color1:  #a40000
 *color2:  #4E9A06
@@ -47,5 +49,4 @@ urxvt*background: black
 *color13: #AD7FA8
 *color14: #fcaf3e
 *color15: #EEEEEC
-
 

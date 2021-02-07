@@ -1,4 +1,6 @@
 [user]
+	name = galvanic
+	email = justinecourty@gmail.com
 [alias]
 	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
 	lolaa = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
@@ -21,3 +23,5 @@
 	submodule = log ## makes it easier to work with submodules
 [fetch]
 	recurseSubmodules = on-demand ## makes it easier to work with submodules
+[init]
+  defaultBranch = main
