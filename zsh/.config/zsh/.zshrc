@@ -52,13 +52,6 @@ fi
 # export MANPATH="/usr/local/man:$MANPATH"
 export PYTHONPATH=:$PYTHONPATH ## so that it includes current directory
 
-## for pyenv and virtualenvwrapper
-export PYENV_ROOT="$HOME/.pyenv"
-eval "$(pyenv init -)"
-#eval "$(pyenv virtualenv-init -)" ## can actually cause problems
-export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
-pyenv virtualenvwrapper_lazy
-
 ## initialise shell via oh-my-zsh /!\ gives options from oh-my-zsh
 mkdir -p /tmp/zsh/
 export ZSH_COMPDUMP="/tmp/zsh/zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
