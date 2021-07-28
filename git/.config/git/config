@@ -1,31 +1,41 @@
 [user]
-	name = galvanic
-	email = justinecourty@gmail.com
+  name = galvanic
+  email = justinecourty@gmail.com
+
 [alias]
-	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
-	lolaa = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+  lolaa = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+
 [push]
-	default = current
+  default = current
+
 [color]
-	ui = auto
-	status = always
-	diff = auto
-	branch = auto
-	interactive = auto
-	pager = true
+  ui = auto
+  status = always
+  diff = auto
+  branch = auto
+  interactive = auto
+  pager = true
+
 [rerere]
-	enabled = true
+  enabled = true
+
 [core]
-	excludesfile = ~/.config/git/gitignore-global
-	attributesfile = ~/.config/git/gitattributes
+  excludesfile = ~/.config/git/gitignore-global
+  attributesfile = ~/.config/git/gitattributes
+
 [transfer]
-	fsckobjects = false ## true will check all fetched objects, helps against data corruption
+  fsckobjects = false ## true will check all fetched objects, helps against data corruption
+
 [status]
-	showUntrackedFiles = all ## shows individual files in untracked directories
-	submodulesummary = true ## makes it easier to work with submodules
+  showUntrackedFiles = all ## shows individual files in untracked directories
+  submodulesummary = true ## makes it easier to work with submodules
+
 [diff]
-	submodule = log ## makes it easier to work with submodules
+  submodule = log ## makes it easier to work with submodules
+
 [fetch]
-	recurseSubmodules = on-demand ## makes it easier to work with submodules
+  recurseSubmodules = on-demand ## makes it easier to work with submodules
+
 [init]
   defaultBranch = main
