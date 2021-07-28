@@ -14,6 +14,8 @@ export WORKON_HOME=$HOME/.virtualenvs/
 #export VIRTUALENVWRAPPER_PYTHON=`which python`
 #export VIRTUALENVWRAPPER_VIRTUALENV=`which virtualenv`
 #source `which virtualenvwrapper.sh`
+## find /usr -name virtualenvwrapper.sh
+source /usr/bin/virtualenvwrapper.sh
 
 ## Added by Justine for GPG Suite (to not have the passphrase entry box pop out of Terminal)
 export GNUPGHOME=$XDG_CONFIG_HOME/gnupg/
