@@ -9,3 +9,6 @@ set selection-clipboard "clipboard"
 
 ## font in the status bar at the bottom
 set font "inconsolata 12"
+
+## key bind inverting colors to Ctrl+i
+map <C-i> recolor
