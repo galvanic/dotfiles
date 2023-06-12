@@ -29,6 +29,7 @@ Plugin 'tomtom/tlib_vim'                  " for SnipMate
 Plugin 'garbas/vim-snipmate'              " snippets
 Plugin 'amix/vim-zenroom2'                " iA Writer environment when editing Markdown, reStructuredText or text files
 Plugin 'ap/vim-css-color'                 " background colours in CSS
+Plugin 'neo4j-contrib/cypher-vim-syntax'  " for Cypher (CQL for neo4j) syntax colouring
 
 call vundle#end()
 filetype plugin on " enable filetype plugins (required for vundle)
@@ -301,6 +302,9 @@ let &printexpr="(v:cmdarg=='' ? ".
     \"system('lpr' . (&printdevice == '' ? '' : ' -P' . &printdevice)".
     \". ' ' . v:fname_in) . delete(v:fname_in) + v:shell_error".
     \" : system('mv '.v:fname_in.' '.v:cmdarg) + v:shell_error)"
+
+" following instructions from :h SnipMate-deprecate
+let g:snipMate = { 'snippet_version' : 1 }
 
 " last edit position and fold status persists between sessions
 " from https://til.hashrocket.com/posts/17c44eda91-persistent-folds-between-vim-sessions
