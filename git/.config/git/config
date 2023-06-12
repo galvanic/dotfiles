@@ -23,6 +23,9 @@
 [core]
   excludesfile = ~/.config/git/gitignore-global
   attributesfile = ~/.config/git/gitattributes
+## added by oh-my-zsh i think
+	eol = lf
+	autocrlf = false
 
 [transfer]
   fsckobjects = false ## true will check all fetched objects, helps against data corruption
@@ -39,3 +42,14 @@
 
 [init]
   defaultBranch = main
+
+## added by oh-my-zsh i think
+[fsck]
+	zeroPaddedFilemode = ignore
+[fetch "fsck"]
+	zeroPaddedFilemode = ignore
+[receive "fsck"]
+	zeroPaddedFilemode = ignore
+[oh-my-zsh]
+	remote = origin
+	branch = master

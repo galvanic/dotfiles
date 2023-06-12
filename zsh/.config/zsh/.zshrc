@@ -55,6 +55,7 @@ export PYTHONPATH=:$PYTHONPATH ## so that it includes current directory
 ## initialise shell via oh-my-zsh /!\ gives options from oh-my-zsh
 mkdir -p /tmp/zsh/
 export ZSH_COMPDUMP="/tmp/zsh/zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
+export ZSH=$ZDOTDIR/ohmyzsh
 source $ZSH/oh-my-zsh.sh
 
 ZSH_CACHE_DIR=$HOME/.oh-my-zsh-cache
