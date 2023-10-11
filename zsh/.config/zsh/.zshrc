@@ -3,13 +3,6 @@ if [[ $OSTYPE == darwin* ]]; then
   source $XDG_CONFIG_HOME/shell/osx
 fi
 
-# Path to oh-my-zsh installation
-if [ -d "$HOME/.oh-my-zsh" ]; then
-  ZSH="$HOME/.oh-my-zsh"
-else
-  ZSH=/usr/share/oh-my-zsh
-fi
-
 # interchangeable _ and -
 HYPHEN_INSENSITIVE="true"
 
@@ -55,7 +48,7 @@ export PYTHONPATH=:$PYTHONPATH ## so that it includes current directory
 ## initialise shell via oh-my-zsh /!\ gives options from oh-my-zsh
 mkdir -p /tmp/zsh/
 export ZSH_COMPDUMP="/tmp/zsh/zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
-export ZSH=$ZDOTDIR/ohmyzsh
+export ZSH=/usr/share/oh-my-zsh # Path to oh-my-zsh installation
 source $ZSH/oh-my-zsh.sh
 
 ZSH_CACHE_DIR=$HOME/.oh-my-zsh-cache
